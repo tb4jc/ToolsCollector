@@ -66,20 +66,29 @@ class TCConfig(object):
         return valueList
 
     def getSectionFull(self, section_id):
-        sectionList = list()
-        for name, value in self.config.items(self.TCC_SECTION_NAMES[section_id]):
-            sectionList.append((name, value))
-        return sectionList
+        if section_id == TCConfig.TCC_LAYOUT:
+            section_list = dict()
+            for option_name, option_value in self.config.items(self.TCC_SECTION_NAMES[section_id]):
+                section_list[option_name] = int(option_value)
+        else:
+            section_list = list()
+            for option_name, option_value in self.config.items(self.TCC_SECTION_NAMES[section_id]):
+                section_list.append((option_name, option_value))
+        return section_list
 
     def updateSection(self, section_id, new_section_data):
-        option_counter = 0
-        max_options = self.tc_config_meta[section_id]['max_options']
-        for data_value in new_section_data:
-            self.config.set(self.TCC_SECTION_NAMES[section_id], str(option_counter), data_value)
-            option_counter += 1
-            if option_counter >= max_options:
-                break
-            pass
+        if section_id == TCConfig.TCC_LAYOUT:
+            for option_name in new_section_data:
+                self.config.set(self.TCC_SECTION_NAMES[section_id], option_name, new_section_data[option_name])
+        else:
+            option_counter = 0
+            max_options = self.tc_config_meta[section_id]['max_options']
+            for data_value in new_section_data:
+                self.config.set(self.TCC_SECTION_NAMES[section_id], str(option_counter), data_value)
+                option_counter += 1
+                if option_counter >= max_options:
+                    break
+                pass
 
 
 if __name__ == "__main__":

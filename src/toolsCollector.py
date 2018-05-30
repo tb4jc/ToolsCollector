@@ -22,9 +22,11 @@ class TCMainWindowImpl(QMainWindow, form_class):
         # read ini file
         self.config = TCConfig(TOOLS_COLLECTOR_INI_FILE)
         self.mcg_fw_dirs = self.config.getSectionValues(TCConfig.TCC_MCG_FW_DIR_HIST)
+        self.cbMcgFwDir.addItems(self.mcg_fw_dirs)
         self.mcg_fw_versions = self.config.getSectionValues(TCConfig.TCC_MCG_FW_VERS_HIST)
         self.cbMcgFwVersion.addItems(self.mcg_fw_versions)
         self.pack_dirs = self.config.getSectionValues(TCConfig.TCC_MCG_PACK_DIR_HIST)
+        self.cbMcgPackDir.addItems(self.pack_dirs)
         self.pack_vers = self.config.getSectionValues(TCConfig.TCC_MCG_PACK_VERS_HIST)
         self.cbMcgPackVersions.addItems(self.pack_vers)
         self.pack_branches = self.config.getSectionValues(TCConfig.TCC_PACK_BRNCH_HIST)
@@ -36,8 +38,28 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.inst_dsts = self.config.getSectionValues(TCConfig.TCC_INST_DST_HIST)
         self.cbMcgFwInstVersion.addItems(self.inst_dsts)
 
+        layout = self.config.getSectionFull(TCConfig.TCC_LAYOUT)
+        if type(layout) is dict:
+            self.move(layout['PosX'], layout['PosY'])
+            self.resize(layout['Width'], layout['Height'])
+            # if 'geometry'in layout:
+            #     self.restoreGeometry(layout['geometry'])
+            # if 'state' in layout:
+            #     self.restoreState(layout['state'])
+        pass
+
     @pyqtSlot()
     def on_app_aboutToQuit(self):
+        pos = self.pos()
+        layout = dict()
+        layout['PosX'] = str(pos.x())
+        layout['PosY'] = str(pos.y())
+        size = self.size()
+        layout['Height'] = str(size.height())
+        layout['Width'] = str(size.width())
+        # layout['geometry'] = str(self.saveGeometry())
+        # layout['state'] = str(self.saveState())
+        self.config.updateSection(TCConfig.TCC_LAYOUT, layout)
         self.config.saveConfig(TOOLS_COLLECTOR_INI_FILE)
         return True
 
