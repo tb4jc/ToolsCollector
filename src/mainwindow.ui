@@ -124,7 +124,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="leMcgPackVersions">
+             <widget class="QComboBox" name="cbMcgPackVersions">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -137,15 +137,11 @@
                 <height>16777215</height>
                </size>
               </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="cbPrevPackVersions">
-              <property name="minimumSize">
-               <size>
-                <width>75</width>
-                <height>0</height>
-               </size>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <property name="insertPolicy">
+               <enum>QComboBox::InsertAtTop</enum>
               </property>
              </widget>
             </item>
@@ -193,7 +189,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lePackSrcBranchVersion">
+             <widget class="QComboBox" name="cbPackSrcBranchVersion">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -206,10 +202,13 @@
                 <height>16777215</height>
                </size>
               </property>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <property name="insertPolicy">
+               <enum>QComboBox::InsertAtTop</enum>
+              </property>
              </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox"/>
             </item>
             <item>
              <widget class="QLabel" name="label_7">
@@ -225,7 +224,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="leMcgPackTagVersion">
+             <widget class="QComboBox" name="cbMcgPackTagVersion">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -237,6 +236,12 @@
                 <width>150</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <property name="insertPolicy">
+               <enum>QComboBox::InsertAtTop</enum>
               </property>
              </widget>
             </item>
@@ -284,7 +289,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="leMcgFwRepoVersion">
+             <widget class="QComboBox" name="cbMcgFwRepoVersion">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -296,6 +301,12 @@
                 <width>150</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <property name="insertPolicy">
+               <enum>QComboBox::InsertAtTop</enum>
               </property>
              </widget>
             </item>
@@ -313,7 +324,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="leMcgFwInstVersion">
+             <widget class="QComboBox" name="cbMcgFwInstVersion">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -325,6 +336,12 @@
                 <width>150</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <property name="insertPolicy">
+               <enum>QComboBox::InsertAtTop</enum>
               </property>
              </widget>
             </item>
@@ -422,13 +439,8 @@
   <tabstop>tabWidget</tabstop>
   <tabstop>pbUpdateMcgFwVersions</tabstop>
   <tabstop>pbUpdateMcgPackVersions</tabstop>
-  <tabstop>leMcgPackVersions</tabstop>
   <tabstop>pbCreateMcgPackTags</tabstop>
-  <tabstop>lePackSrcBranchVersion</tabstop>
-  <tabstop>leMcgPackTagVersion</tabstop>
   <tabstop>pbCopyMcgFwToInstLoc</tabstop>
-  <tabstop>leMcgFwRepoVersion</tabstop>
-  <tabstop>leMcgFwInstVersion</tabstop>
   <tabstop>pbClearLog</tabstop>
   <tabstop>teLog</tabstop>
  </tabstops>
