@@ -13,10 +13,16 @@
   <property name="windowTitle">
    <string>MyToolsCollection</string>
   </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_6">
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="locale">
+       <locale language="English" country="UnitedStates"/>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -37,6 +43,9 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>Update MCG Firmware Versions</string>
               </property>
@@ -53,6 +62,9 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>New MCG Fw Version:</string>
               </property>
@@ -60,9 +72,15 @@
             </item>
             <item>
              <widget class="QComboBox" name="cbMcgFwVersion">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
-                <width>75</width>
+                <width>100</width>
                 <height>0</height>
                </size>
               </property>
@@ -71,6 +89,9 @@
                 <width>150</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
               </property>
               <property name="editable">
                <bool>true</bool>
@@ -81,7 +102,79 @@
              </widget>
             </item>
             <item>
+             <widget class="QLabel" name="label_8">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
+              <property name="text">
+               <string>Fw Dir:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="cbMcgFwDir">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>250</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <property name="insertPolicy">
+               <enum>QComboBox::InsertAtTop</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pbFwDirSel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>20</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>20</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer">
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -105,6 +198,9 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>Update MCG Pack Versions</string>
               </property>
@@ -118,6 +214,9 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>New Version:</string>
               </property>
@@ -125,9 +224,15 @@
             </item>
             <item>
              <widget class="QComboBox" name="cbMcgPackVersions">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
-                <width>75</width>
+                <width>100</width>
                 <height>0</height>
                </size>
               </property>
@@ -136,6 +241,9 @@
                 <width>150</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
               </property>
               <property name="editable">
                <bool>true</bool>
@@ -146,7 +254,79 @@
              </widget>
             </item>
             <item>
+             <widget class="QLabel" name="label_9">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
+              <property name="text">
+               <string>Pack Dir:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="cbMcgPackDir">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>250</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <property name="insertPolicy">
+               <enum>QComboBox::InsertAtTop</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pbPackDirSel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>20</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>20</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer_2">
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -170,6 +350,9 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>Create MCG Pack Tags</string>
               </property>
@@ -183,6 +366,9 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>Branch Version:</string>
               </property>
@@ -190,9 +376,15 @@
             </item>
             <item>
              <widget class="QComboBox" name="cbPackSrcBranchVersion">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
-                <width>75</width>
+                <width>100</width>
                 <height>0</height>
                </size>
               </property>
@@ -201,6 +393,9 @@
                 <width>150</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
               </property>
               <property name="editable">
                <bool>true</bool>
@@ -218,6 +413,9 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>Tag Version (Base):</string>
               </property>
@@ -225,9 +423,15 @@
             </item>
             <item>
              <widget class="QComboBox" name="cbMcgPackTagVersion">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
-                <width>75</width>
+                <width>100</width>
                 <height>0</height>
                </size>
               </property>
@@ -236,6 +440,9 @@
                 <width>150</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
               </property>
               <property name="editable">
                <bool>true</bool>
@@ -247,6 +454,9 @@
             </item>
             <item>
              <spacer name="horizontalSpacer_4">
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -270,6 +480,9 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>Copy MCG Firmware To Install Loc</string>
               </property>
@@ -283,6 +496,9 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>Source Version:</string>
               </property>
@@ -290,9 +506,15 @@
             </item>
             <item>
              <widget class="QComboBox" name="cbMcgFwRepoVersion">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
-                <width>75</width>
+                <width>100</width>
                 <height>0</height>
                </size>
               </property>
@@ -301,6 +523,9 @@
                 <width>150</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
               </property>
               <property name="editable">
                <bool>true</bool>
@@ -318,6 +543,9 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>Target Version:</string>
               </property>
@@ -325,9 +553,15 @@
             </item>
             <item>
              <widget class="QComboBox" name="cbMcgFwInstVersion">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
-                <width>75</width>
+                <width>100</width>
                 <height>0</height>
                </size>
               </property>
@@ -336,6 +570,9 @@
                 <width>150</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
               </property>
               <property name="editable">
                <bool>true</bool>
@@ -347,6 +584,9 @@
             </item>
             <item>
              <spacer name="horizontalSpacer_3">
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -364,6 +604,9 @@
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
              <widget class="QLabel" name="label_3">
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>Logs:</string>
               </property>
@@ -371,6 +614,9 @@
             </item>
             <item>
              <spacer name="horizontalSpacer_6">
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -384,6 +630,9 @@
             </item>
             <item>
              <widget class="QPushButton" name="pbClearLog">
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
               <property name="text">
                <string>Clear Log</string>
               </property>
@@ -393,6 +642,9 @@
           </item>
           <item>
            <widget class="QTextEdit" name="teLog">
+            <property name="locale">
+             <locale language="English" country="UnitedStates"/>
+            </property>
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -436,7 +688,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>tabWidget</tabstop>
   <tabstop>pbUpdateMcgFwVersions</tabstop>
   <tabstop>pbUpdateMcgPackVersions</tabstop>
   <tabstop>pbCreateMcgPackTags</tabstop>

@@ -23,16 +23,23 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.config = TCConfig(TOOLS_COLLECTOR_INI_FILE)
         self.mcg_fw_dirs = self.config.getSectionValues(TCConfig.TCC_MCG_FW_DIR_HIST)
         self.mcg_fw_versions = self.config.getSectionValues(TCConfig.TCC_MCG_FW_VERS_HIST)
+        self.cbMcgFwVersion.addItems(self.mcg_fw_versions)
         self.pack_dirs = self.config.getSectionValues(TCConfig.TCC_MCG_PACK_DIR_HIST)
         self.pack_vers = self.config.getSectionValues(TCConfig.TCC_MCG_PACK_VERS_HIST)
+        self.cbMcgPackVersions.addItems(self.pack_vers)
         self.pack_branches = self.config.getSectionValues(TCConfig.TCC_PACK_BRNCH_HIST)
+        self.cbPackSrcBranchVersion.addItems(self.pack_branches)
         self.pack_tags = self.config.getSectionValues(TCConfig.TCC_PACK_TAG_HIST)
+        self.cbMcgPackTagVersion.addItems(self.pack_tags)
         self.inst_srcs = self.config.getSectionValues(TCConfig.TCC_INST_SRC_HIST)
+        self.cbMcgFwRepoVersion.addItems(self.inst_srcs)
         self.inst_dsts = self.config.getSectionValues(TCConfig.TCC_INST_DST_HIST)
+        self.cbMcgFwInstVersion.addItems(self.inst_dsts)
 
     @pyqtSlot()
     def on_app_aboutToQuit(self):
         self.config.saveConfig(TOOLS_COLLECTOR_INI_FILE)
+        return True
 
     @pyqtSlot(bool)
     def on_pbUpdateMcgFwVersions_clicked(self, checked):
