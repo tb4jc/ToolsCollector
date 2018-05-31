@@ -3,9 +3,10 @@
 # during different actions.
 #
 import sys
+import struct
 from tcconfig import TCConfig
 
-from PyQt5.QtCore import pyqtSlot, QStringListModel
+from PyQt5.QtCore import pyqtSlot, QStringListModel, QByteArray
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUiType
 
@@ -40,12 +41,13 @@ class TCMainWindowImpl(QMainWindow, form_class):
 
         layout = self.config.getSectionFull(TCConfig.TCC_LAYOUT)
         if type(layout) is dict:
-            self.move(layout['PosX'], layout['PosY'])
-            self.resize(layout['Width'], layout['Height'])
-            # if 'geometry'in layout:
-            #     self.restoreGeometry(layout['geometry'])
-            # if 'state' in layout:
-            #     self.restoreState(layout['state'])
+            if 'geometry'in layout:
+                self.restoreGeometry(QByteArray.fromBase64(layout['geometry']))
+            else:
+                self.move(layout['PosX'], layout['PosY'])
+                self.resize(layout['Width'], layout['Height'])
+            if 'state' in layout:
+                self.restoreState(QByteArray.fromBase64(layout['state']))
         pass
 
     @pyqtSlot()
@@ -57,8 +59,11 @@ class TCMainWindowImpl(QMainWindow, form_class):
         size = self.size()
         layout['Height'] = str(size.height())
         layout['Width'] = str(size.width())
-        # layout['geometry'] = str(self.saveGeometry())
-        # layout['state'] = str(self.saveState())
+
+        geometry = str(self.saveGeometry().toBase64())
+
+        layout['geometry'] = str(self.saveGeometry().toBase64())
+        layout['state'] = str(self.saveState().toBase64())
         self.config.updateSection(TCConfig.TCC_LAYOUT, layout)
         self.config.saveConfig(TOOLS_COLLECTOR_INI_FILE)
         return True

@@ -69,7 +69,10 @@ class TCConfig(object):
         if section_id == TCConfig.TCC_LAYOUT:
             section_list = dict()
             for option_name, option_value in self.config.items(self.TCC_SECTION_NAMES[section_id]):
-                section_list[option_name] = int(option_value)
+                if option_name in ['geometry', 'state']:
+                    section_list[option_name] = option_value
+                else:
+                    section_list[option_name] = int(option_value)
         else:
             section_list = list()
             for option_name, option_value in self.config.items(self.TCC_SECTION_NAMES[section_id]):
