@@ -1,0 +1,104 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="Configuration" type="ConfigurationType"/>
+
+  <xs:complexType name="ConfigurationType">
+    <xs:sequence>
+      <xs:element name="ApplicationAbsoluteRootPath" type="xs:string" minOccurs="0" default=""/>
+      <xs:element name="NumberOfResetsBeforeNvramReset" type="xs:unsignedInt" minOccurs="0" default="0"/>
+      <xs:element name="SoftwareDownload" type="SoftwareDownloadType"/>
+      <xs:element name="ComponentManagerScheduling" type="ComponentManagerSchedulingType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SoftwareDownloadType">
+    <xs:sequence>
+      <xs:element name="DLU" type="DLUType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DLUType">
+    <xs:sequence>
+      <xs:element name="Name" type="NameType"/>
+      <xs:element name="Versioning" type="VersioningType" minOccurs="0" default="Strict"/>
+      <xs:element name="SoftwareVersion" type="SoftwareVersionType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SoftwareVersionType">
+    <xs:sequence>
+      <xs:element name="Version" type="xs:unsignedByte" minOccurs="0" default="0"/>
+      <xs:element name="Release" type="xs:unsignedByte" minOccurs="0" default="0"/>
+      <xs:element name="Update" type="xs:unsignedByte" minOccurs="0" default="0"/>
+      <xs:element name="Evolution" type="xs:unsignedByte" minOccurs="0" default="0"/>
+      <xs:element name="ActivationTime" type="xs:unsignedInt" minOccurs="0" default="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ComponentManagerSchedulingType">
+    <xs:sequence>
+      <xs:element name="SynchronousACOList" type="SynchronousACOListType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="AsynchronousACOInstance" type="AsynchronousACOInstanceType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SynchronousACOListType">
+    <xs:sequence>
+      <xs:element name="Identifier" type="xs:unsignedInt"/>
+      <xs:element name="CyclePeriod" type="CyclePeriodType"/>
+      <xs:element name="ThreadPriority" type="ThreadPriorityType"/>
+      <xs:element name="SynchronousACOInstance" type="SynchronousACOInstanceType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SynchronousACOInstanceType">
+    <xs:sequence>
+      <xs:element name="Name" type="NameType"/>
+      <xs:element name="IsInitiallyActive" type="IsInitiallyActiveType" minOccurs="0" default="TRUE"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AsynchronousACOInstanceType">
+    <xs:sequence>
+      <xs:element name="Name" type="NameType"/>
+      <xs:element name="ThreadPriority" type="ThreadPriorityType"/>
+      <xs:element name="IsInitiallyActive" type="IsInitiallyActiveType" minOccurs="0" default="TRUE"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="VersioningType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Strict"/>
+      <xs:enumeration value="Flexible"/>
+      <xs:enumeration value="None"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CyclePeriodType">
+    <xs:restriction base="xs:unsignedInt">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="86400000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ThreadPriorityType">
+    <xs:restriction base="xs:unsignedInt">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="7"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NameType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="IsInitiallyActiveType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TRUE"/>
+      <xs:enumeration value="FALSE"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+</xs:schema>

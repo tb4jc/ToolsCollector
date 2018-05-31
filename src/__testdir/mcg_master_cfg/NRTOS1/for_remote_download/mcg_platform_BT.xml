@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<MDLU_ED xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Evolution="0" Update="0" Release="0" xsi:noNamespaceSchemaLocation="MDLU_ED.xsd" Version="1">
+  <Level>EDSubPackage</Level>
+  <Source>BT</Source>
+  <SciList>
+    <Entry>
+      <SciMdluName>0000-mcg_stand_nrt1ppc_bt</SciMdluName>
+      <SciMdluVersion>3.22.1.0</SciMdluVersion>
+    </Entry>
+    <Entry>
+      <SciMdluName>0000-mcg_gsmdump_nrt1ppc_bt</SciMdluName>
+      <SciMdluVersion>2.0.3.0</SciMdluVersion>
+    </Entry>
+    <Entry>
+      <SciMdluName>0000-mcg_videostrm_nrt1ppc_bt</SciMdluName>
+      <SciMdluVersion>1.1.2.0</SciMdluVersion>
+    </Entry>
+    <Entry>
+      <SciMdluName>0000-mcg_cfg_nrt1ppc_bt</SciMdluName>
+      <SciMdluVersion>1.2.3.4</SciMdluVersion>
+    </Entry>
+  </SciList>
+</MDLU_ED>

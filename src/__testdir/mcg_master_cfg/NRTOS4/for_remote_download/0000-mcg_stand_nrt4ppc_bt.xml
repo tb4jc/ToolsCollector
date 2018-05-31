@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cmconfiguration.xsd">
+    <ApplicationAbsoluteRootPath>/usr/local/data/cm</ApplicationAbsoluteRootPath>
+
+    <SoftwareDownload>
+        <!-- TDS Tool Client Component -->
+        <DLU>
+            <Name>0000-tds_tcl_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>2</Version>
+                <Release>9</Release>
+                <Update>0</Update>
+                <Evolution>1</Evolution>
+            </SoftwareVersion>
+        </DLU>
+
+        <DLU>
+            <Name>0000-tssp_client_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>2</Version>
+                <Release>14</Release>
+                <Update>0</Update>
+                <Evolution>4</Evolution>
+            </SoftwareVersion>
+        </DLU>
+
+        <!-- VRS-IP Components -->
+        <DLU>
+            <Name>0000-vrs_client_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>1</Version>
+                <Release>7</Release>
+                <Update>0</Update>
+                <Evolution>8</Evolution>
+            </SoftwareVersion>
+        </DLU>
+        <DLU>
+            <Name>0000-vrs_reporthw1_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>1</Version>
+                <Release>7</Release>
+                <Update>0</Update>
+                <Evolution>8</Evolution>
+            </SoftwareVersion>
+        </DLU>
+        <DLU>
+            <Name>0000-vrs_reporthw2_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>1</Version>
+                <Release>7</Release>
+                <Update>0</Update>
+                <Evolution>8</Evolution>
+            </SoftwareVersion>
+        </DLU>
+        <DLU>
+            <Name>0000-vrs_reportsw1_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>1</Version>
+                <Release>7</Release>
+                <Update>0</Update>
+                <Evolution>8</Evolution>
+            </SoftwareVersion>
+        </DLU>
+        <DLU>
+            <Name>0000-vrs_reportsw2_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>1</Version>
+                <Release>7</Release>
+                <Update>0</Update>
+                <Evolution>8</Evolution>
+            </SoftwareVersion>
+        </DLU>
+        <DLU>
+            <Name>0000-vrs_server_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>1</Version>
+                <Release>7</Release>
+                <Update>0</Update>
+                <Evolution>8</Evolution>
+            </SoftwareVersion>
+        </DLU>
+
+        <!-- MCG Firmware Components -->
+        <DLU>
+            <Name>0000-mcg_base2_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>5</Version>
+                <Release>22</Release>
+                <Update>1</Update>
+                <Evolution>0</Evolution>
+            </SoftwareVersion>
+        </DLU>
+
+        <DLU>
+            <Name>0000-mcg_framewrk2_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>5</Version>
+                <Release>22</Release>
+                <Update>1</Update>
+                <Evolution>0</Evolution>
+            </SoftwareVersion>
+        </DLU>
+
+        <DLU>
+            <Name>0000-mcg_services_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>5</Version>
+                <Release>22</Release>
+                <Update>1</Update>
+                <Evolution>0</Evolution>
+            </SoftwareVersion>
+        </DLU>
+
+        <DLU>
+            <Name>0000-mcg_tsspsrvng_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>1</Version>
+                <Release>1</Release>
+                <Update>0</Update>
+                <Evolution>0</Evolution>
+            </SoftwareVersion>
+        </DLU>
+
+        <DLU>
+            <Name>0000-mcg_wakeuptrn_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>1</Version>
+                <Release>1</Release>
+                <Update>0</Update>
+                <Evolution>0</Evolution>
+            </SoftwareVersion>
+        </DLU>
+
+        <DLU>
+            <Name>0000-mcg_traininfo_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>1</Version>
+                <Release>0</Release>
+                <Update>3</Update>
+                <Evolution>0</Evolution>
+            </SoftwareVersion>
+        </DLU>
+
+    </SoftwareDownload>
+
+    <ComponentManagerScheduling>
+
+        <SynchronousACOList>
+            <Identifier>1</Identifier>
+            <CyclePeriod>100</CyclePeriod>
+            <ThreadPriority>3</ThreadPriority>
+
+            <SynchronousACOInstance>
+                <Name>i1.wakeupsaco</Name>
+                <IsInitiallyActive>TRUE</IsInitiallyActive>
+            </SynchronousACOInstance>
+        </SynchronousACOList>
+
+        <SynchronousACOList>
+            <Identifier>2</Identifier>
+            <CyclePeriod>1000</CyclePeriod>
+            <ThreadPriority>3</ThreadPriority>
+
+            <!-- TCMS INTERFACE SYNC PART -->
+            <SynchronousACOInstance>
+                <Name>i1.tcmsifsaco</Name>
+                <IsInitiallyActive>TRUE</IsInitiallyActive>
+            </SynchronousACOInstance>
+        </SynchronousACOList>
+
+        <SynchronousACOList>
+            <Identifier>3</Identifier>
+            <CyclePeriod>1000</CyclePeriod>
+            <ThreadPriority>3</ThreadPriority>
+
+            <SynchronousACOInstance>
+                <Name>is1.ptimers</Name>
+                <IsInitiallyActive>TRUE</IsInitiallyActive>
+            </SynchronousACOInstance>
+
+        </SynchronousACOList>
+
+        <SynchronousACOList>
+            <Identifier>4</Identifier>
+            <CyclePeriod>1000</CyclePeriod>
+            <ThreadPriority>3</ThreadPriority>
+
+            <SynchronousACOInstance>
+                <Name>is1.dtimers</Name>
+                <IsInitiallyActive>TRUE</IsInitiallyActive>
+            </SynchronousACOInstance>
+
+        </SynchronousACOList>
+
+        <SynchronousACOList>
+            <Identifier>5</Identifier>
+            <CyclePeriod>1000</CyclePeriod>
+            <ThreadPriority>3</ThreadPriority>
+
+            <!-- MCG Train Info Service -->
+            <SynchronousACOInstance>
+                <Name>trainInfo</Name>
+                <IsInitiallyActive>TRUE</IsInitiallyActive>
+            </SynchronousACOInstance>
+
+        </SynchronousACOList>
+
+        <SynchronousACOList>
+            <!-- VRS-IP SYNC PART -->
+            <Identifier>6</Identifier>
+            <CyclePeriod>3000</CyclePeriod>
+            <ThreadPriority>3</ThreadPriority>
+
+            <SynchronousACOInstance>
+                <Name>i1.vrsreportdvssw</Name>
+                <IsInitiallyActive>TRUE</IsInitiallyActive>
+            </SynchronousACOInstance>
+
+            <SynchronousACOInstance>
+                <Name>i1.vrsreportdvssw2</Name>
+                <IsInitiallyActive>TRUE</IsInitiallyActive>
+            </SynchronousACOInstance>
+
+            <SynchronousACOInstance>
+                <Name>i1.vrsreportdvshw</Name>
+                <IsInitiallyActive>TRUE</IsInitiallyActive>
+            </SynchronousACOInstance>
+
+            <SynchronousACOInstance>
+                <Name>i1.vrsreportdvshw2</Name>
+                <IsInitiallyActive>TRUE</IsInitiallyActive>
+            </SynchronousACOInstance>
+        </SynchronousACOList>
+
+        <SynchronousACOList>
+            <Identifier>7</Identifier>
+            <CyclePeriod>1000</CyclePeriod>
+            <ThreadPriority>3</ThreadPriority>
+
+            <!-- TCMS INTERFACE CF SYNC PART -->
+            <SynchronousACOInstance>
+                <Name>i1.tcmsifcfsaco</Name>
+                <IsInitiallyActive>TRUE</IsInitiallyActive>
+            </SynchronousACOInstance>
+        </SynchronousACOList>
+
+        <SynchronousACOList>
+            <Identifier>8</Identifier>
+            <CyclePeriod>1000</CyclePeriod>
+            <ThreadPriority>3</ThreadPriority>
+
+            <!-- MCG TSSP NG Service -->
+            <SynchronousACOInstance>
+                <Name>tsngsaco</Name>
+                <IsInitiallyActive>TRUE</IsInitiallyActive>
+            </SynchronousACOInstance>
+        </SynchronousACOList>
+
+        <!-- TCMS INTERFACE HACO / ASYNC PART -->
+        <AsynchronousACOInstance>
+            <Name>i1.tcmsifhaco</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <!-- MCG FRAMEWORK -->
+        <AsynchronousACOInstance>
+            <Name>deliverfileUL</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <AsynchronousACOInstance>
+            <Name>deliverfileDL</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <AsynchronousACOInstance>
+            <Name>mcgframework</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <!-- CONSISTINFO DATA -->
+        <AsynchronousACOInstance>
+            <Name>ConsistInfo</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <AsynchronousACOInstance>
+            <Name>CreateCstInfo</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <!-- UPLOAD EVENT DATA -->
+        <AsynchronousACOInstance>
+            <Name>UploadEventData</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <AsynchronousACOInstance>
+            <Name>CreateUploadED</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <!-- UPLOAD CONDITION DATA -->
+        <AsynchronousACOInstance>
+            <Name>UploadCondData</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <AsynchronousACOInstance>
+            <Name>CreateUploadCD</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <!-- READ EVENT DATA  -->
+        <AsynchronousACOInstance>
+            <Name>ReadEventDataCo</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <AsynchronousACOInstance>
+            <Name>CreateEdrFilter</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <!-- READ EVENT DATA LAST TIME -->
+        <AsynchronousACOInstance>
+            <Name>ReadEventDataLt</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <AsynchronousACOInstance>
+            <Name>CreateEdrLast</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <!-- VRS SERVCIE -->
+        <AsynchronousACOInstance>
+            <Name>VrsService</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <AsynchronousACOInstance>
+            <Name>CreateVrs</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <!-- MCG SERVICES TIMER ASYNC PART -->
+        <AsynchronousACOInstance>
+            <Name>ia1.ptimerh</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <AsynchronousACOInstance>
+            <Name>ia1.dtimerh</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <!-- WAKEUPTRAIN SERVICE -->
+        <AsynchronousACOInstance>
+            <Name>WakeUpTrain</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <!-- TSSP SERVICE -->
+        <AsynchronousACOInstance>
+            <Name>tsspserviceng</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <!-- Upload LogFile Data -->
+        <AsynchronousACOInstance>
+            <Name>UploadLogFile</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <AsynchronousACOInstance>
+            <Name>CreateLogFile</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+    </ComponentManagerScheduling>
+
+</Configuration>
