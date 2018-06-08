@@ -47,7 +47,7 @@ def find_in_files(top, pattern):
 
 
 def replace_in_files(top, search_string, replace_string, file_filter='.?'):
-    # type: (object, str, str, str) -> list(string)
+    # type: (Path, str, str, str) -> list(string)
     """
     Search recursively through top directory and replace search_string through replace_string in files matching given file_filter.
     In order to be able to replace multiple line search strings, the whole file is read in and a string replace is executed.

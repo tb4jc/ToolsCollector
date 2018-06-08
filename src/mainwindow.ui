@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>895</width>
-    <height>594</height>
+    <width>990</width>
+    <height>583</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,25 +36,6 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
-             <widget class="QPushButton" name="pbUpdateMcgFwVersions">
-              <property name="minimumSize">
-               <size>
-                <width>210</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="locale">
-               <locale language="English" country="UnitedStates"/>
-              </property>
-              <property name="text">
-               <string>Update MCG Firmware Versions</string>
-              </property>
-              <property name="checkable">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QLabel" name="label_4">
               <property name="minimumSize">
                <size>
@@ -62,11 +43,20 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>130</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="locale">
                <locale language="English" country="UnitedStates"/>
               </property>
               <property name="text">
                <string>New MCG Fw Version:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -80,7 +70,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>100</width>
+                <width>150</width>
                 <height>0</height>
                </size>
               </property>
@@ -105,8 +95,14 @@
              <widget class="QLabel" name="label_8">
               <property name="minimumSize">
                <size>
-                <width>50</width>
+                <width>120</width>
                 <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
                </size>
               </property>
               <property name="locale">
@@ -114,6 +110,9 @@
               </property>
               <property name="text">
                <string>Fw Dir:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -171,6 +170,31 @@
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="pbUpdateMcgFwVersions">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
+              <property name="text">
+               <string>Update MCG Firmware Versions</string>
+              </property>
+              <property name="checkable">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer">
               <property name="locale">
                <locale language="English" country="UnitedStates"/>
@@ -191,22 +215,6 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QPushButton" name="pbUpdateMcgPackVersions">
-              <property name="minimumSize">
-               <size>
-                <width>210</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="locale">
-               <locale language="English" country="UnitedStates"/>
-              </property>
-              <property name="text">
-               <string>Update MCG Pack Versions</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QLabel" name="label_5">
               <property name="minimumSize">
                <size>
@@ -214,11 +222,20 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>130</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="locale">
                <locale language="English" country="UnitedStates"/>
               </property>
               <property name="text">
                <string>New Version:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -232,7 +249,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>100</width>
+                <width>150</width>
                 <height>0</height>
                </size>
               </property>
@@ -257,8 +274,14 @@
              <widget class="QLabel" name="label_9">
               <property name="minimumSize">
                <size>
-                <width>50</width>
+                <width>120</width>
                 <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
                </size>
               </property>
               <property name="locale">
@@ -266,6 +289,9 @@
               </property>
               <property name="text">
                <string>Pack Dir:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -323,6 +349,28 @@
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="pbUpdateMcgPackVersions">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
+              <property name="text">
+               <string>Update MCG Pack Versions</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer_2">
               <property name="locale">
                <locale language="English" country="UnitedStates"/>
@@ -343,27 +391,17 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QPushButton" name="pbCreateMcgPackTags">
-              <property name="minimumSize">
-               <size>
-                <width>210</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="locale">
-               <locale language="English" country="UnitedStates"/>
-              </property>
-              <property name="text">
-               <string>Create MCG Pack Tags</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QLabel" name="label_6">
               <property name="minimumSize">
                <size>
-                <width>100</width>
+                <width>130</width>
                 <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>130</width>
+                <height>16777215</height>
                </size>
               </property>
               <property name="locale">
@@ -371,6 +409,9 @@
               </property>
               <property name="text">
                <string>Branch Version:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -384,7 +425,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>100</width>
+                <width>150</width>
                 <height>0</height>
                </size>
               </property>
@@ -413,11 +454,20 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="locale">
                <locale language="English" country="UnitedStates"/>
               </property>
               <property name="text">
                <string>Tag Version (Base):</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -431,7 +481,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>100</width>
+                <width>150</width>
                 <height>0</height>
                </size>
               </property>
@@ -449,6 +499,28 @@
               </property>
               <property name="insertPolicy">
                <enum>QComboBox::InsertAtTop</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pbCreateMcgPackTags">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
+              <property name="text">
+               <string>Create MCG Pack Tags</string>
               </property>
              </widget>
             </item>
@@ -473,27 +545,17 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QPushButton" name="pbCopyMcgFwToInstLoc">
-              <property name="minimumSize">
-               <size>
-                <width>210</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="locale">
-               <locale language="English" country="UnitedStates"/>
-              </property>
-              <property name="text">
-               <string>Copy MCG Firmware To Install Loc</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QLabel" name="label">
               <property name="minimumSize">
                <size>
-                <width>100</width>
+                <width>130</width>
                 <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>130</width>
+                <height>16777215</height>
                </size>
               </property>
               <property name="locale">
@@ -501,6 +563,9 @@
               </property>
               <property name="text">
                <string>Source Version:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -514,7 +579,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>100</width>
+                <width>150</width>
                 <height>0</height>
                </size>
               </property>
@@ -543,11 +608,20 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="locale">
                <locale language="English" country="UnitedStates"/>
               </property>
               <property name="text">
                <string>Target Version:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -561,7 +635,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>100</width>
+                <width>150</width>
                 <height>0</height>
                </size>
               </property>
@@ -579,6 +653,28 @@
               </property>
               <property name="insertPolicy">
                <enum>QComboBox::InsertAtTop</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pbCopyMcgFwToInstLoc">
+              <property name="minimumSize">
+               <size>
+                <width>210</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>210</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedStates"/>
+              </property>
+              <property name="text">
+               <string>Copy MCG Firmware To Install Loc</string>
               </property>
              </widget>
             </item>
@@ -630,6 +726,18 @@
             </item>
             <item>
              <widget class="QPushButton" name="pbClearLog">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>100</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="locale">
                <locale language="English" country="UnitedStates"/>
               </property>
@@ -671,7 +779,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>895</width>
+     <width>990</width>
      <height>26</height>
     </rect>
    </property>
@@ -688,9 +796,20 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>cbMcgFwVersion</tabstop>
+  <tabstop>cbMcgFwDir</tabstop>
+  <tabstop>pbFwDirSel</tabstop>
   <tabstop>pbUpdateMcgFwVersions</tabstop>
+  <tabstop>cbMcgPackVersions</tabstop>
+  <tabstop>cbMcgPackDir</tabstop>
+  <tabstop>pbPackDirSel</tabstop>
   <tabstop>pbUpdateMcgPackVersions</tabstop>
+  <tabstop>cbPackSrcBranchVersion</tabstop>
+  <tabstop>cbMcgPackTagVersion</tabstop>
   <tabstop>pbCreateMcgPackTags</tabstop>
+  <tabstop>cbMcgFwRepoVersion</tabstop>
+  <tabstop>cbMcgFwInstVersion</tabstop>
   <tabstop>pbCopyMcgFwToInstLoc</tabstop>
   <tabstop>pbClearLog</tabstop>
   <tabstop>teLog</tabstop>
