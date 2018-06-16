@@ -231,4 +231,4 @@ class TCMainWindowImpl(QMainWindow, form_class):
 form = TCMainWindowImpl()
 app.aboutToQuit.connect(form.on_app_aboutToQuit)
 form.show()
-psys.exit(app.exec_())
+sys.exit(app.exec_())
