@@ -5,7 +5,7 @@
     <SoftwareDownload>
         <!-- TDS Tool Client Component -->
         <DLU>
-            <Name>0000-tds_tcl_nrt4ppc</Name>
+            <Name>0000-tds_tcl_nrt2ppc</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>2</Version>
@@ -16,7 +16,7 @@
         </DLU>
 
         <DLU>
-            <Name>0000-tssp_client_nrt4ppc</Name>
+            <Name>0000-tssp_client_nrt2ppc</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>2</Version>
@@ -28,7 +28,7 @@
 
         <!-- VRS-IP Components -->
         <DLU>
-            <Name>0000-vrs_client_nrt4ppc</Name>
+            <Name>vrsClient</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>1</Version>
@@ -38,7 +38,7 @@
             </SoftwareVersion>
         </DLU>
         <DLU>
-            <Name>0000-vrs_reporthw1_nrt4ppc</Name>
+            <Name>vrsReportDvsHw</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>1</Version>
@@ -48,7 +48,7 @@
             </SoftwareVersion>
         </DLU>
         <DLU>
-            <Name>0000-vrs_reporthw2_nrt4ppc</Name>
+            <Name>vrsReportDvsHw2</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>1</Version>
@@ -58,7 +58,7 @@
             </SoftwareVersion>
         </DLU>
         <DLU>
-            <Name>0000-vrs_reportsw1_nrt4ppc</Name>
+            <Name>vrsReportDvsSw</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>1</Version>
@@ -68,7 +68,7 @@
             </SoftwareVersion>
         </DLU>
         <DLU>
-            <Name>0000-vrs_reportsw2_nrt4ppc</Name>
+            <Name>vrsReportDvsSw2</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>1</Version>
@@ -78,7 +78,7 @@
             </SoftwareVersion>
         </DLU>
         <DLU>
-            <Name>0000-vrs_server_nrt4ppc</Name>
+            <Name>vrsServer</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>1</Version>
@@ -90,40 +90,40 @@
 
         <!-- MCG Firmware Components -->
         <DLU>
-            <Name>0000-mcg_base2_nrt4ppc</Name>
+            <Name>0000-mcg_base2_nrt2ppc</Name>
             <Versioning>Flexible</Versioning>
             <SoftwareVersion>
-                <Version>5</Version>
+                <Version>4</Version>
                 <Release>22</Release>
                 <Update>0</Update>
-                <Evolution>2</Evolution>
+                <Evolution>0</Evolution>
             </SoftwareVersion>
         </DLU>
 
         <DLU>
-            <Name>0000-mcg_framewrk2_nrt4ppc</Name>
+            <Name>0000-mcg_framewrk2_nrt2ppc</Name>
             <Versioning>Flexible</Versioning>
             <SoftwareVersion>
-                <Version>5</Version>
+                <Version>4</Version>
                 <Release>22</Release>
                 <Update>0</Update>
-                <Evolution>2</Evolution>
+                <Evolution>0</Evolution>
             </SoftwareVersion>
         </DLU>
 
         <DLU>
-            <Name>0000-mcg_services_nrt4ppc</Name>
+            <Name>0000-mcg_services_nrt2ppc</Name>
             <Versioning>Flexible</Versioning>
             <SoftwareVersion>
-                <Version>5</Version>
+                <Version>4</Version>
                 <Release>22</Release>
                 <Update>0</Update>
-                <Evolution>2</Evolution>
+                <Evolution>0</Evolution>
             </SoftwareVersion>
         </DLU>
 
         <DLU>
-            <Name>0000-mcg_tsspsrv_nrt4ppc</Name>
+            <Name>0000-mcg_tsspsrv_nrt2ppc</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>1</Version>
@@ -134,7 +134,7 @@
         </DLU>
 
         <DLU>
-            <Name>0000-mcg_tsspsrvng_nrt4ppc</Name>
+            <Name>0000-mcg_tsspsrvng_nrt2ppc</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>1</Version>
@@ -145,7 +145,7 @@
         </DLU>
 
         <DLU>
-            <Name>0000-mcg_wakeuptrn_nrt4ppc</Name>
+            <Name>0000-mcg_wakeuptrn_nrt2ppc</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>1</Version>
@@ -156,7 +156,7 @@
         </DLU>
 
         <DLU>
-            <Name>0000-mcg_traininfo_nrt4ppc</Name>
+            <Name>0000-mcg_traininfo_nrt2ppc</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>1</Version>
@@ -178,7 +178,7 @@
         </DLU>
 
         <DLU>
-            <Name>0000-mcg_gsmdump_nrt4ppc</Name>
+            <Name>0000-mcg_gsmdump_nrt2ppc</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>2</Version>
@@ -189,7 +189,7 @@
         </DLU>        
 
        <DLU>
-            <Name>0000-mcg_videostrm_nrt4ppc</Name>
+            <Name>0000-mcg_videostrm_nrt2ppc</Name>
             <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>1</Version>

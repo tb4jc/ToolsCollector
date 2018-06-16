@@ -11,6 +11,7 @@ from PyQt5.uic import loadUiType
 
 from tcconfig import TCConfig
 from releasescripts.mcgfirmware import *
+from releasescripts.mcgconfig import *
 
 TOOLS_COLLECTOR_INI_FILE = 'toolscollector.ini'
 
@@ -26,29 +27,48 @@ class TCMainWindowImpl(QMainWindow, form_class):
         # read ini file
         self.config = TCConfig(TOOLS_COLLECTOR_INI_FILE)
 
-        self.mcg_fw_dir_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_MCG_FW_DIR_HIST))
-        self.cbMcgFwDir.setModel(self.mcg_fw_dir_model)
-
         self.mcg_fw_versions = QStringListModel(self.config.getSectionValues(TCConfig.TCC_MCG_FW_VERS_HIST))
-        self.cbMcgFwVersion.setModel(self.mcg_fw_versions)
+        self.cbMcgFwVersions.setModel(self.mcg_fw_versions)
+
+        self.mcg_cfg_versions = QStringListModel(self.config.getSectionValues(TCConfig.TCC_MCG_CFG_VERS_HIST))
+        self.cbMcgCfgVersions.setModel(self.mcg_cfg_versions)
+
+        self.prodbase_versions = QStringListModel(self.config.getSectionValues(TCConfig.TCC_PRODBASE_VERS_HIST))
+        self.cbProdBaseVersions.setModel(self.prodbase_versions)
+
+        self.mcg_fw_dir_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_MCG_FW_DIR_HIST))
+        self.cbMcgFwDirs.setModel(self.mcg_fw_dir_model)
+
+        self.mcg_cfg_dir_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_MCG_CFG_DIR_HIST))
+        self.cbMcgCfgDirs.setModel(self.mcg_cfg_dir_model)
 
         self.pack_dir_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_MCG_PACK_DIR_HIST))
-        self.cbMcgPackDir.setModel(self.pack_dir_model)
-
-        self.pack_versions_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_MCG_PACK_VERS_HIST))
-        self.cbMcgPackVersions.setModel(self.pack_versions_model)
+        self.cbMcgPackDirs.setModel(self.pack_dir_model)
 
         self.pack_branches_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_PACK_BRNCH_HIST))
-        self.cbPackSrcBranchVersion.setModel(self.pack_branches_model)
+        self.cbPackSrcBranchVersions.setModel(self.pack_branches_model)
 
         self.pack_tags_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_PACK_TAG_HIST))
-        self.cbMcgPackTagVersion.setModel(self.pack_tags_model)
+        self.cbMcgPackTagVersions.setModel(self.pack_tags_model)
 
         self.inst_srcs_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_INST_SRC_HIST))
-        self.cbMcgFwRepoVersion.setModel(self.inst_srcs_model)
+        self.cbMcgFwRepoVersions.setModel(self.inst_srcs_model)
 
         self.inst_dsts_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_INST_DST_HIST))
-        self.cbMcgFwInstVersion.setModel(self.inst_dsts_model)
+        self.cbMcgFwInstVersions.setModel(self.inst_dsts_model)
+
+        self._data_dic = {
+            TCConfig.TCC_MCG_FW_DIR_HIST:    {'combox': self.cbMcgFwDirs,             'model': self.mcg_fw_dir_model},
+            TCConfig.TCC_MCG_FW_VERS_HIST:   {'combox': self.cbMcgFwVersions,         'model': self.mcg_fw_versions},
+            TCConfig.TCC_MCG_CFG_DIR_HIST:   {'combox': self.cbMcgCfgDirs,            'model': self.mcg_cfg_dir_model},
+            TCConfig.TCC_MCG_CFG_VERS_HIST:  {'combox': self.cbMcgCfgVersions,        'model': self.mcg_cfg_versions},
+            TCConfig.TCC_MCG_PACK_DIR_HIST:  {'combox': self.cbMcgPackDirs,           'model': self.pack_dir_model},
+            TCConfig.TCC_PRODBASE_VERS_HIST: {'combox': self.cbProdBaseVersions,      'model': self.prodbase_versions},
+            TCConfig.TCC_PACK_BRNCH_HIST:    {'combox': self.cbPackSrcBranchVersions, 'model': self.pack_branches_model},
+            TCConfig.TCC_PACK_TAG_HIST:      {'combox': self.cbMcgPackTagVersions,    'model': self.pack_tags_model},
+            TCConfig.TCC_INST_SRC_HIST:      {'combox': self.cbMcgFwRepoVersions,     'model': self.inst_srcs_model},
+            TCConfig.TCC_INST_DST_HIST:      {'combox': self.cbMcgFwInstVersions,     'model': self.inst_dsts_model}
+        }
 
         self.teLog.setFontFamily('Courier New')
 
@@ -62,6 +82,31 @@ class TCMainWindowImpl(QMainWindow, form_class):
             if 'state' in layout:
                 self.restoreState(QByteArray.fromBase64(layout['state']))
         pass
+
+
+    def update_version_combox(self, id, version):
+        combox = self._data_dic[id]['combox']
+        model = self._data_dic[id]['model']
+        if version in model.stringList():
+            # remove existing item and new added at front
+            idx = combox.currentIndex()
+            combox.removeItem(idx)
+        combox.insertItem(0, version)
+        combox.setCurrentIndex(0)
+        self.config.updateSection(id, model.stringList())
+
+
+    def update_dir_combox(self, id, path):
+        combox = self._data_dic[id]['combox']
+        model = self._data_dic[id]['model']
+        try:
+            idx = model.stringList().index(path)
+            combox.setCurrentIndex(idx)
+        except (ValueError):
+            combox.insertItem(0, path) # adds it automatically to the list model too
+            combox.setCurrentIndex(0)
+        # fetch stringList again as it was udpated in the model through the insert above
+        self.config.updateSection(id, model.stringList())
 
     @pyqtSlot()
     def on_app_aboutToQuit(self):
@@ -89,36 +134,48 @@ class TCMainWindowImpl(QMainWindow, form_class):
         options |= QFileDialog.DontResolveSymlinks
         dir = QFileDialog.getExistingDirectory(self, "Select MCG Firmware Directory", 'c:', options = options)
         selected_dir = str(dir)
-        item_list = self.mcg_fw_dir_model.stringList()
-        try:
-            idx = item_list.index(selected_dir)
-            self.cbMcgFwDir.setCurrentIndex(idx)
-        except (ValueError):
-            self.cbMcgFwDir.insertItem(0, selected_dir) # adds it automatically to the list model too
-            self.cbMcgFwDir.setCurrentIndex(0)
-            # fetch stringList again as it was udpated in the model through the insert above
-            self.config.updateSection(TCConfig.TCC_MCG_FW_DIR_HIST, self.mcg_fw_dir_model.stringList())
+        self.update_dir_combox(TCConfig.TCC_MCG_FW_DIR_HIST, selected_dir)
 
     @pyqtSlot(bool)
     def on_pbUpdateMcgFwVersions_clicked(self, checked):
-        top_dir = Path(self.cbMcgFwDir.currentText())
-        mcgFwVersion = self.cbMcgFwVersion.currentText()
+        top_dir = Path(self.cbMcgFwDirs.currentText())
+        mcgFwVersion = self.cbMcgFwVersions.currentText()
         self.teLog.append("===============================================================================")
         msg = "UpdateMcgFwVersions clicked with parameter = %s" % mcgFwVersion
         self.teLog.append(msg)
-        self.teLog.append("-------------------------------------------------------------------------------\n")
-        if mcgFwVersion in self.mcg_fw_versions.stringList():
-            # remove existing item and new added at front
-            idx = self.cbMcgFwVersion.currentIndex()
-            self.cbMcgFwVersion.removeItem(idx)
-        self.cbMcgFwVersion.insertItem(0, mcgFwVersion)
-        self.cbMcgFwVersion.setCurrentIndex(0)
-        self.config.updateSection(TCConfig.TCC_MCG_FW_VERS_HIST, self.mcg_fw_versions.stringList())
+        self.teLog.append("-------------------------------------------------------------------------------")
+        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcgFwVersion)
         result, error_msg = update_mcg_fw_versions(top_dir, mcgFwVersion)
         if result:
             self.teLog.append("Mcg Firmware version files updated")
         else:
             self.teLog.append("Failed to update Mcg Firmware version files.")
+            self.teLog.append("Error = " + error_msg)
+
+    @pyqtSlot(bool)
+    def on_pbCfgDirSel_clicked(self, checked):
+        # self.teLog.append("pbCfgDirSel clicked")
+        options = QFileDialog.Options()
+        options |= QFileDialog.ShowDirsOnly
+        options |= QFileDialog.DontResolveSymlinks
+        dir = QFileDialog.getExistingDirectory(self, "Select MCG Config Directory", 'c:', options = options)
+        selected_dir = str(dir)
+        self.update_dir_combox(TCConfig.TCC_MCG_CFG_DIR_HIST, selected_dir)
+
+    @pyqtSlot(bool)
+    def on_pbUpdateMcgMasters_clicked(self, checked):
+        top_dir = Path(self.cbMcgCfgDirs.currentText())
+        mcgFwVersion = self.cbMcgFwVersions.currentText()
+        self.teLog.append("===============================================================================")
+        msg = "UpdateMcgMasters clicked with parameter = %s" % mcgFwVersion
+        self.teLog.append(msg)
+        self.teLog.append("-------------------------------------------------------------------------------")
+        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcgFwVersion)
+        result, error_msg = update_mcg_master_files(top_dir, mcgFwVersion)
+        if result:
+            self.teLog.append("Mcg Master files updated")
+        else:
+            self.teLog.append("Failed to update Mcg Master files.")
             self.teLog.append("Error = " + error_msg)
 
     @pyqtSlot(bool)
@@ -128,78 +185,43 @@ class TCMainWindowImpl(QMainWindow, form_class):
         options |= QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks
         dir = QFileDialog.getExistingDirectory(self, "Select MCG Pack Directory", "c:", options = options)
         selected_dir = str(dir)
-        item_list = self.pack_dir_model.stringList()
-        try:
-            idx = item_list.index(selected_dir)
-            self.cbMcgPackDir.setCurrentIndex(idx)
-        except (ValueError):
-            self.cbMcgPackDir.insertItem(0, selected_dir) # adds it automatically to the list model too
-            self.cbMcgPackDir.setCurrentIndex(0)
-            # fetch stringList again as it was udpated in the model through the insert above
-            self.config.updateSection(TCConfig.TCC_MCG_PACK_DIR_HIST, self.pack_dir_model.stringList())
+        self.update_dir_combox(TCConfig.TCC_MCG_PACK_DIR_HIST, selected_dir)
 
     @pyqtSlot(bool)
     def on_pbUpdateMcgPackVersions_clicked(self, checked):
-        mcgPackVersion = self.cbMcgPackVersions.currentText()
+        mcgFwVersion = self.cbMcgFwVersions.currentText()
+        mcgCfgVersion = self.cbMcgCfgVersions.currentText()
+        prodBaseVersion = self.cbProdBaseVersions.currentText()
         self.teLog.append("===============================================================================")
-        msg = "UpdateMcgPackVersions clicked with parameter = %s" % mcgPackVersion
+        msg = "UpdateMcgPackVersions clicked with parameters:\n    Firmware = %s\n    Config   = %s\n    ProdBase = %s" % \
+              (mcgFwVersion, mcgCfgVersion, prodBaseVersion)
         self.teLog.append(msg)
-        self.teLog.append("-------------------------------------------------------------------------------\n")
-        if mcgPackVersion in self.pack_versions_model.stringList():
-            # remove existing item and new added at front
-            idx = self.cbMcgPackVersions.currentIndex()
-            self.cbMcgPackVersions.removeItem(idx)
-        self.cbMcgPackVersions.insertItem(0, mcgPackVersion)
-        self.cbMcgPackVersions.setCurrentIndex(0)
-        self.config.updateSection(TCConfig.TCC_MCG_PACK_VERS_HIST, self.pack_versions_model.stringList())
+        self.teLog.append("-------------------------------------------------------------------------------")
+        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcgFwVersion)
+        self.update_version_combox(TCConfig.TCC_MCG_CFG_VERS_HIST, mcgCfgVersion)
+        self.update_version_combox(TCConfig.TCC_PRODBASE_VERS_HIST, prodBaseVersion)
 
     @pyqtSlot(bool)
     def on_pbCreateMcgPackTags_clicked(self, checked):
-        brach_version = self.cbPackSrcBranchVersion.currentText()
-        tag_version = self.cbMcgPackTagVersion.currentText()
+        branch_version = self.cbPackSrcBranchVersions.currentText()
+        tag_version = self.cbMcgPackTagVersions.currentText()
         self.teLog.append("===============================================================================")
-        msg = "CreateMcgPackTags clicked with packBranch = %s and packTag = %s" % (brach_version, tag_version)
+        msg = "CreateMcgPackTags clicked with packBranch = %s and packTag = %s" % (branch_version, tag_version)
         self.teLog.append(msg)
-        self.teLog.append("-------------------------------------------------------------------------------\n")
-        if brach_version in self.pack_branches_model.stringList():
-            # remove existing item and new added at front
-            idx = self.cbPackSrcBranchVersion.currentIndex()
-            self.cbPackSrcBranchVersion.removeItem(idx)
-        self.cbPackSrcBranchVersion.insertItem(0, brach_version)
-        self.cbPackSrcBranchVersion.setCurrentIndex(0)
-        self.config.updateSection(TCConfig.TCC_PACK_BRNCH_HIST, self.pack_branches_model.stringList())
-
-        if tag_version in self.pack_tags_model.stringList():
-            # remove existing item and new added at front
-            idx = self.cbMcgPackTagVersion.currentIndex()
-            self.cbMcgPackTagVersion.removeItem(idx)
-        self.cbMcgPackTagVersion.insertItem(0, tag_version)
-        self.cbMcgPackTagVersion.setCurrentIndex(0)
-        self.config.updateSection(TCConfig.TCC_PACK_TAG_HIST, self.pack_tags_model.stringList())
+        self.teLog.append("-------------------------------------------------------------------------------")
+        self.update_version_combox(TCConfig.TCC_PACK_BRNCH_HIST, branch_version)
+        self.update_version_combox(TCConfig.TCC_PACK_TAG_HIST, tag_version)
 
     @pyqtSlot(bool)
     def on_pbCopyMcgFwToInstLoc_clicked(self, checked):
-        inst_src = self.cbMcgFwRepoVersion.currentText()
-        inst_dst = self.cbMcgFwInstVersion.currentText()
+        inst_src = self.cbMcgFwRepoVersions.currentText()
+        inst_dst = self.cbMcgFwInstVersions.currentText()
         self.teLog.append("===============================================================================")
         msg = "CopyMcgFwToInstLoc clicked with src = %s and dst = %s" % (inst_src, inst_dst)
         self.teLog.append(msg)
-        self.teLog.append("-------------------------------------------------------------------------------\n")
-        if inst_src in self.inst_srcs_model.stringList():
-            # remove existing item and new added at front
-            idx = self.cbMcgFwRepoVersion.currentIndex()
-            self.cbMcgFwRepoVersion.removeItem(idx)
-        self.cbMcgFwRepoVersion.insertItem(0, inst_src)
-        self.cbMcgFwRepoVersion.setCurrentIndex(0)
-        self.config.updateSection(TCConfig.TCC_INST_SRC_HIST, self.inst_srcs_model.stringList())
-
-        if inst_dst in self.inst_dsts_model.stringList():
-            # remove existing item and new added at front
-            idx = self.cbMcgFwInstVersion.currentIndex()
-            self.cbMcgFwInstVersion.removeItem(idx)
-        self.cbMcgFwInstVersion.insertItem(0, inst_dst)
-        self.cbMcgFwInstVersion.setCurrentIndex(0)
-        self.config.updateSection(TCConfig.TCC_INST_DST_HIST, self.inst_dsts_model.stringList())
+        self.teLog.append("-------------------------------------------------------------------------------")
+        self.update_version_combox(TCConfig.TCC_INST_SRC_HIST, inst_src)
+        self.update_version_combox(TCConfig.TCC_INST_DST_HIST, inst_dst)
 
     @pyqtSlot(bool)
     def on_pbClearLog_clicked(self, checked):
@@ -209,4 +231,4 @@ class TCMainWindowImpl(QMainWindow, form_class):
 form = TCMainWindowImpl()
 app.aboutToQuit.connect(form.on_app_aboutToQuit)
 form.show()
-sys.exit(app.exec_())
+psys.exit(app.exec_())

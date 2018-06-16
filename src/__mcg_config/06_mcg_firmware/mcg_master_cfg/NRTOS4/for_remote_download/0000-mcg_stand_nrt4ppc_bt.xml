@@ -91,44 +91,33 @@
         <!-- MCG Firmware Components -->
         <DLU>
             <Name>0000-mcg_base2_nrt4ppc</Name>
-            <Versioning>Flexible</Versioning>
+            <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>5</Version>
                 <Release>22</Release>
                 <Update>0</Update>
-                <Evolution>2</Evolution>
+                <Evolution>0</Evolution>
             </SoftwareVersion>
         </DLU>
 
         <DLU>
             <Name>0000-mcg_framewrk2_nrt4ppc</Name>
-            <Versioning>Flexible</Versioning>
+            <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>5</Version>
                 <Release>22</Release>
                 <Update>0</Update>
-                <Evolution>2</Evolution>
+                <Evolution>0</Evolution>
             </SoftwareVersion>
         </DLU>
 
         <DLU>
             <Name>0000-mcg_services_nrt4ppc</Name>
-            <Versioning>Flexible</Versioning>
+            <Versioning>Strict</Versioning>
             <SoftwareVersion>
                 <Version>5</Version>
                 <Release>22</Release>
                 <Update>0</Update>
-                <Evolution>2</Evolution>
-            </SoftwareVersion>
-        </DLU>
-
-        <DLU>
-            <Name>0000-mcg_tsspsrv_nrt4ppc</Name>
-            <Versioning>Strict</Versioning>
-            <SoftwareVersion>
-                <Version>1</Version>
-                <Release>3</Release>
-                <Update>14</Update>
                 <Evolution>0</Evolution>
             </SoftwareVersion>
         </DLU>
@@ -165,39 +154,6 @@
                 <Evolution>0</Evolution>
             </SoftwareVersion>
         </DLU>
-
-        <DLU>
-            <Name>MCG_BASE_CFG</Name>
-            <Versioning>None</Versioning>
-            <SoftwareVersion>
-                <Version>1</Version>
-                <Release>0</Release>
-                <Update>0</Update>
-                <Evolution>0</Evolution>
-            </SoftwareVersion>
-        </DLU>
-
-        <DLU>
-            <Name>0000-mcg_gsmdump_nrt4ppc</Name>
-            <Versioning>Strict</Versioning>
-            <SoftwareVersion>
-                <Version>2</Version>
-                <Release>0</Release>
-                <Update>3</Update>
-                <Evolution>0</Evolution>
-            </SoftwareVersion>
-        </DLU>        
-
-       <DLU>
-            <Name>0000-mcg_videostrm_nrt4ppc</Name>
-            <Versioning>Strict</Versioning>
-            <SoftwareVersion>
-                <Version>1</Version>
-                <Release>1</Release>
-                <Update>2</Update>
-                <Evolution>0</Evolution>
-            </SoftwareVersion>
-        </DLU>        
 
     </SoftwareDownload>
 
@@ -440,12 +396,6 @@
 
         <!-- TSSP SERVICE -->
         <AsynchronousACOInstance>
-            <Name>tsspservice</Name>
-            <ThreadPriority>3</ThreadPriority>
-            <IsInitiallyActive>TRUE</IsInitiallyActive>
-        </AsynchronousACOInstance>
-
-        <AsynchronousACOInstance>
             <Name>tsspserviceng</Name>
             <ThreadPriority>3</ThreadPriority>
             <IsInitiallyActive>TRUE</IsInitiallyActive>
@@ -460,26 +410,6 @@
 
         <AsynchronousACOInstance>
             <Name>CreateLogFile</Name>
-            <ThreadPriority>3</ThreadPriority>
-            <IsInitiallyActive>TRUE</IsInitiallyActive>
-        </AsynchronousACOInstance>
-
-        <!-- GSMDump Service -->
-        <AsynchronousACOInstance>
-            <Name>GsmDump</Name>
-            <ThreadPriority>3</ThreadPriority>
-            <IsInitiallyActive>TRUE</IsInitiallyActive>
-        </AsynchronousACOInstance>
-
-        <AsynchronousACOInstance>
-            <Name>CreateGsmDump</Name>
-            <ThreadPriority>3</ThreadPriority>
-            <IsInitiallyActive>TRUE</IsInitiallyActive>
-        </AsynchronousACOInstance>
-
-        <!-- VideoStreaming Service -->
-        <AsynchronousACOInstance>
-            <Name>VideoStreaming</Name>
             <ThreadPriority>3</ThreadPriority>
             <IsInitiallyActive>TRUE</IsInitiallyActive>
         </AsynchronousACOInstance>

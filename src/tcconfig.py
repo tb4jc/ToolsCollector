@@ -10,20 +10,24 @@ class TCConfig(object):
     TCC_LAYOUT = 1
     TCC_MCG_FW_DIR_HIST = 2
     TCC_MCG_FW_VERS_HIST = 3
-    TCC_MCG_PACK_DIR_HIST = 4
-    TCC_MCG_PACK_VERS_HIST = 5
-    TCC_INST_DST_HIST = 6
-    TCC_PACK_BRNCH_HIST = 7
-    TCC_PACK_TAG_HIST = 8
-    TCC_INST_SRC_HIST = 9
-    TCC_INST_DST_HIST = 10
+    TCC_MCG_CFG_DIR_HIST = 4
+    TCC_MCG_CFG_VERS_HIST = 5
+    TCC_MCG_PACK_DIR_HIST = 6
+    TCC_PRODBASE_VERS_HIST = 7
+    TCC_INST_DST_HIST = 8
+    TCC_PACK_BRNCH_HIST = 9
+    TCC_PACK_TAG_HIST = 10
+    TCC_INST_SRC_HIST = 11
+    TCC_INST_DST_HIST = 12
     TCC_SECTION_NAMES = {
         TCC_CONFIGURATION:      'Configuration',
         TCC_LAYOUT:             'Layout',
         TCC_MCG_FW_DIR_HIST:    'McgFwDirHistory',
         TCC_MCG_FW_VERS_HIST:   'McgFwVersionHistory',
+        TCC_MCG_CFG_DIR_HIST:   'McgCfgDirHistory',
+        TCC_MCG_CFG_VERS_HIST:  'McgCfgVersionHistory',
         TCC_MCG_PACK_DIR_HIST:  'McgPackDirHistory',
-        TCC_MCG_PACK_VERS_HIST: 'McgPackVersionHistory',
+        TCC_PRODBASE_VERS_HIST: 'ProdBaseVersionHistory',
         TCC_PACK_BRNCH_HIST:    'CreateMcgPackBranchHistory',
         TCC_PACK_TAG_HIST:      'CreateMcgPackTagHistory',
         TCC_INST_SRC_HIST:      'CopyToInstallSrcHistory',
@@ -38,9 +42,11 @@ class TCConfig(object):
         self.config.read(config_file_name)
         self.tc_config_meta = {
             self.TCC_MCG_FW_DIR_HIST:  {'max_options': 10},
-            self.TCC_MCG_FW_VERS_HIST: {'max_options': 4},
+            self.TCC_MCG_FW_VERS_HIST: {'max_options': 10},
+            self.TCC_MCG_CFG_DIR_HIST:  {'max_options': 10},
+            self.TCC_MCG_CFG_VERS_HIST: {'max_options': 10},
             self.TCC_MCG_PACK_DIR_HIST: {'max_options': 10},
-            self.TCC_MCG_PACK_VERS_HIST: {'max_options': 10},
+            self.TCC_PRODBASE_VERS_HIST: {'max_options': 10},
             self.TCC_PACK_BRNCH_HIST: {'max_options': 10},
             self.TCC_PACK_TAG_HIST: {'max_options': 10},
             self.TCC_INST_SRC_HIST: {'max_options': 10},

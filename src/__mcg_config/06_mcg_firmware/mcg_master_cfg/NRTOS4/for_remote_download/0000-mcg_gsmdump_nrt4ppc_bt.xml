@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cmconfiguration.xsd">
+    <ApplicationAbsoluteRootPath>/usr/local/data/cm</ApplicationAbsoluteRootPath>
+    <SoftwareDownload>
+        <DLU>
+            <Name>0000-mcg_gsmdump_nrt4ppc</Name>
+            <Versioning>Strict</Versioning>
+            <SoftwareVersion>
+                <Version>2</Version>
+                <Release>0</Release>
+                <Update>3</Update>
+                <Evolution>0</Evolution>
+            </SoftwareVersion>
+        </DLU>
+    </SoftwareDownload>
+    <ComponentManagerScheduling>
+        <AsynchronousACOInstance>
+            <Name>GsmDump</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+
+        <AsynchronousACOInstance>
+            <Name>CreateGsmDump</Name>
+            <ThreadPriority>3</ThreadPriority>
+            <IsInitiallyActive>TRUE</IsInitiallyActive>
+        </AsynchronousACOInstance>
+    </ComponentManagerScheduling>
+</Configuration>

@@ -96,7 +96,7 @@
                 <Version>5</Version>
                 <Release>22</Release>
                 <Update>0</Update>
-                <Evolution>2</Evolution>
+                <Evolution>0</Evolution>
             </SoftwareVersion>
         </DLU>
 
@@ -107,7 +107,7 @@
                 <Version>5</Version>
                 <Release>22</Release>
                 <Update>0</Update>
-                <Evolution>2</Evolution>
+                <Evolution>0</Evolution>
             </SoftwareVersion>
         </DLU>
 
@@ -118,17 +118,6 @@
                 <Version>5</Version>
                 <Release>22</Release>
                 <Update>0</Update>
-                <Evolution>2</Evolution>
-            </SoftwareVersion>
-        </DLU>
-
-        <DLU>
-            <Name>0000-mcg_tsspsrv_nrt4ppc</Name>
-            <Versioning>Strict</Versioning>
-            <SoftwareVersion>
-                <Version>1</Version>
-                <Release>3</Release>
-                <Update>14</Update>
                 <Evolution>0</Evolution>
             </SoftwareVersion>
         </DLU>
@@ -184,17 +173,6 @@
                 <Version>2</Version>
                 <Release>0</Release>
                 <Update>3</Update>
-                <Evolution>0</Evolution>
-            </SoftwareVersion>
-        </DLU>        
-
-       <DLU>
-            <Name>0000-mcg_videostrm_nrt4ppc</Name>
-            <Versioning>Strict</Versioning>
-            <SoftwareVersion>
-                <Version>1</Version>
-                <Release>1</Release>
-                <Update>2</Update>
                 <Evolution>0</Evolution>
             </SoftwareVersion>
         </DLU>        
@@ -440,12 +418,6 @@
 
         <!-- TSSP SERVICE -->
         <AsynchronousACOInstance>
-            <Name>tsspservice</Name>
-            <ThreadPriority>3</ThreadPriority>
-            <IsInitiallyActive>TRUE</IsInitiallyActive>
-        </AsynchronousACOInstance>
-
-        <AsynchronousACOInstance>
             <Name>tsspserviceng</Name>
             <ThreadPriority>3</ThreadPriority>
             <IsInitiallyActive>TRUE</IsInitiallyActive>
@@ -473,13 +445,6 @@
 
         <AsynchronousACOInstance>
             <Name>CreateGsmDump</Name>
-            <ThreadPriority>3</ThreadPriority>
-            <IsInitiallyActive>TRUE</IsInitiallyActive>
-        </AsynchronousACOInstance>
-
-        <!-- VideoStreaming Service -->
-        <AsynchronousACOInstance>
-            <Name>VideoStreaming</Name>
             <ThreadPriority>3</ThreadPriority>
             <IsInitiallyActive>TRUE</IsInitiallyActive>
         </AsynchronousACOInstance>
