@@ -54,7 +54,7 @@ def update_platform_xml(top_dir, new_firmware_version):
             elif replace_in_next_line:
                 new_line_start = line[line.find('>'):]
                 new_line_end = line[line.rfind('<'):]
-                ine = new_line_start + full_version + new_line_end
+                line = new_line_start + full_version + new_line_end
                 replace_in_next_line = False
             sys.stdout.write(line)
 
