@@ -80,11 +80,6 @@ def update_platform_xml(top_dir, new_firmware_version):
                     line = file_input_obj.readline()
                     break
             sys.stdout.write(line)
-
-    # files_master = list(work_dir.glob('**/mcg_master*.xml'))
-    # files_stand = list(work_dir.glob('**/0000-mcg_stand*.xml'))
-    # files = [files_master, files_stand]
-
     return result, err_msg
 
 
