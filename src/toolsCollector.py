@@ -171,7 +171,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.teLog.append(msg)
         self.teLog.append("-------------------------------------------------------------------------------")
         self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcgFwVersion)
-        result, error_msg = update_mcg_master_files(top_dir, mcgFwVersion)
+        result, error_msg = update_mcg_master_files(str(top_dir), mcgFwVersion)
         if result:
             self.teLog.append("Mcg Master files updated")
         else:
