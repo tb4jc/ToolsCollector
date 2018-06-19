@@ -12,6 +12,7 @@ from PyQt5.uic import loadUiType
 from tcconfig import TCConfig
 from releasescripts.mcgfirmware import *
 from releasescripts.mcgconfig import *
+from releasescripts.mcgpack import *
 
 TOOLS_COLLECTOR_INI_FILE = 'toolscollector.ini'
 
@@ -192,6 +193,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
         mcgFwVersion = self.cbMcgFwVersions.currentText()
         mcgCfgVersion = self.cbMcgCfgVersions.currentText()
         prodBaseVersion = self.cbProdBaseVersions.currentText()
+        pack_dir = self.cbMcgPackDirs.currentText()
         self.teLog.append("===============================================================================")
         msg = "UpdateMcgPackVersions clicked with parameters:\n    Firmware = %s\n    Config   = %s\n    ProdBase = %s" % \
               (mcgFwVersion, mcgCfgVersion, prodBaseVersion)
@@ -200,6 +202,8 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcgFwVersion)
         self.update_version_combox(TCConfig.TCC_MCG_CFG_VERS_HIST, mcgCfgVersion)
         self.update_version_combox(TCConfig.TCC_PRODBASE_VERS_HIST, prodBaseVersion)
+        version_dic = {'fw': mcgFwVersion, 'cfg': mcgCfgVersion, 'prod_base': prodBaseVersion}
+        result, err_msg = update_pack_files(pack_dir, version_dic)
 
     @pyqtSlot(bool)
     def on_pbCreateMcgPackTags_clicked(self, checked):

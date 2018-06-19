@@ -1,1 +1,140 @@
+#
+# Script for updating MCG Master configurations to new gien version.
+#
+
+import fileinput
+import string
+import sys
+import os
+from pathlib import *
+from filesearch import find_files
+
+
+# def update_master_xml(work_dir, version_dic):
+#     result = True
+#     err_msg = 'No Error'
+#     master_files = find_files(work_dir, '.*mcg_(stand|master).*\.xml')
+#     search_list = ['0000-mcg_base', '0000-mcg_framewrk', '0000-mcg_services']
+#     for file_path, file_name in master_files:
+#         file_input_obj = fileinput.input([file_path], inplace=1)
+#         for line in file_input_obj:
+#             # for each mcg master, search line with DLU name matching any of search_list
+#             for key in search_list:
+#                 idx = string.find(line, key)
+#                 if idx > 0:
+#                     sys.stdout.write(line)
+#                     # write next four lines to file then replace with new release, update and evolution
+#                     for counter in range(0, 3, 1):
+#                         sys.stdout.write(file_input_obj.readline())
+#                     file_input_obj.readline()
+#                     sys.stdout.write('                <Release>%s</Release>\n' % version_dic['release'])
+#                     file_input_obj.readline()
+#                     sys.stdout.write('                <Update>%s</Update>\n' % version_dic['update'])
+#                     file_input_obj.readline()
+#                     sys.stdout.write('                <Evolution>%s</Evolution>\n' % version_dic['evolution'])
+#                     line = file_input_obj.readline()
+#                     break
+#             sys.stdout.write(line)
+#     return result, err_msg
+
+
+def update_device_pack_inc_file(file_path, fw_version_dic):
+    result = True
+    err_msg = 'No Error'
+    version_rub = '%s.%s.%s\n' % (fw_version_dic['release'], fw_version_dic['update'], fw_version_dic['evolution'])
+    counter = 0
+    for line in fileinput.input([file_path], inplace=1):
+        counter += 1
+        idx_in_line = string.find(line, 'SCI1VERSION')
+        if idx_in_line >= 0:
+            new_line_start = line[:line.find('.')+1]
+            line = new_line_start + version_rub
+        sys.stdout.write(line)
+    if counter == 0:
+        result = False
+        err_msg = "Empty file"
+    return result, err_msg
+
+
+def update_versions_inc_file(file_path, version_dic):
+    result = True
+    err_msg = 'No Error'
+    counter = 0
+    for line in fileinput.input([file_path], inplace=1):
+        counter += 1
+        idx_in_line = string.find(line, 'nrtos_prod_base')
+        if idx_in_line >= 0:
+            line = 'nrtos_prod_base/' + version_dic['prod_base']['full'] + '\n'
+        else:
+            idx_in_line = string.find(line, 'mcg_firmware')
+            if idx_in_line >= 0:
+                line = 'mcg_firmware/' + version_dic['fw']['full'] + '\n'
+            else:
+                idx_in_line = string.find(line, 'mcg_config/')
+                if idx_in_line >= 0:
+                    line = 'mcg_config/' + version_dic['cfg']['full'] + '\n'
+        sys.stdout.write(line)
+    if counter == 0:
+        result = False
+        err_msg = "Empty file"
+    return result, err_msg
+
+
+def update_target(target_dir, versions_dic):
+    result = True
+    err_msg = 'No error'
+    for root_dir, dirs, files in os.walk(target_dir, topdown=True):
+        for name in files:
+            if name == 'versions.inc':
+                file_path = os.path.join(root_dir, name)
+                result, err_msg = update_versions_inc_file(file_path, versions_dic)
+                pass
+            elif name == 'device_pack.inc':
+                file_path = os.path.join(root_dir, name)
+                result, err_msg = update_device_pack_inc_file(file_path, versions_dic['fw'])
+            if not result:
+                break
+        if not result:
+            break
+    return result, err_msg
+
+def update_pack_files(package_dir, version_dic):
+    result = True
+    err_msg = "No error"
+
+    fw_split = version_dic['fw'].split('.')
+    fw_dic = {'full': version_dic['fw'], 'version': fw_split[0], 'release': fw_split[1], 'update': fw_split[2], 'evolution': fw_split[3]}
+    cfg_split = version_dic['cfg'].split('.')
+    cfg_dic = {'full': version_dic['cfg'], 'version': cfg_split[0], 'release': cfg_split[1], 'update': cfg_split[2], 'evolution': cfg_split[3]}
+    prod_base_version_split = version_dic['prod_base'].split('.')
+    prod_base_dic = {'full': version_dic['prod_base'], 'version': prod_base_version_split[0], 'release': fw_split[1], 'update': fw_split[2], 'evolution': prod_base_version_split[3]}
+    versions_dic = {'fw': fw_dic, 'cfg': cfg_dic, 'prod_base': prod_base_dic}
+
+    mcg_base_dir = os.path.join(package_dir, 'mcg')
+    update_target(mcg_base_dir, versions_dic)
+
+    mcg2_base_dir = os.path.join(package_dir, 'mcg2')
+    update_target(mcg2_base_dir, versions_dic)
+
+    nrtos4_base_dir = os.path.join(package_dir, 'nrtos4')
+    update_target(nrtos4_base_dir, versions_dic)
+
+    # result, err_msg = update_master_xml(str(mcg_master_dir), version_dic)
+    # if result:
+    #     result, err_msg = update_platform_xml(mcg_master_dir, version_dic)
+    return result, err_msg
+
+
+if __name__ == "__main__":
+    pack_dir = Path('c:\Users\Thomas\Development\python\ToolsCollector\src\__mcg_pack')
+    version_dic = {'fw': '3.22.0.1', 'cfg': '3.22.0.0', 'prod_base': '3.22.0.3'}
+    result, err_msg = update_pack_files(str(pack_dir), version_dic)
+    print result
+    print err_msg
+
+
+
+
+
+
 
