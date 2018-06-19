@@ -1,5 +1,5 @@
 #
-# Script for updating MCG Master configurations to new gien version.
+# Script for updating MCG Master configurations to new given version.
 #
 
 import fileinput

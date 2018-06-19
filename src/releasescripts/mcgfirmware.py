@@ -1,10 +1,12 @@
-import string
-import sys
+#
+# Script for updating MCG Firmware to new given version.
+#
+
 from pathlib import *
-import os
+
 
 def update_mcg_fw_versions(top_dir, new_version):
-    errMsg = "No error"
+    err_msg = "No error"
     mcg_fw_version_files = ['mcgbase/McgBase/version_file', 'mcgframework/McgFramework/version_file', 'mcgservices/McgServices/version_file']
     new_version_vrue = new_version.split('.')
     new_version_file_content = 'version="%s"\nrelease="%s"\nupdate="%s"\nevolution="%s"\n' % (new_version_vrue[0], new_version_vrue[1], new_version_vrue[2], new_version_vrue[3])
@@ -15,8 +17,8 @@ def update_mcg_fw_versions(top_dir, new_version):
         out_file.write(new_build_ver)
         out_file.close()
     else:
-        errMsg = 'File path %s is invalid/doesn\'t exist - please check' % str(bld_ver_path.parent)
-        return False, errMsg
+        err_msg = 'File path %s is invalid/doesn\'t exist - please check' % str(bld_ver_path.parent)
+        return False, err_msg
     for f in mcg_fw_version_files:
         file_path = top_dir / f
         parent_dir = file_path.parent
@@ -25,9 +27,10 @@ def update_mcg_fw_versions(top_dir, new_version):
             outfile.write(new_version_file_content)
             outfile.close()
         else:
-            errMsg = 'File path %s is invalid/doesn\'t exist - please check' % str(parent_dir)
-            return False, errMsg
-    return True, errMsg
+            err_msg = 'File path %s is invalid/doesn\'t exist - please check' % str(parent_dir)
+            return False, err_msg
+    return True, err_msg
+
 
 if __name__ == "__main__":
     test_dir = Path('c:\Users\Thomas\Development\python\ToolsCollector\src\__mcg_firmware')

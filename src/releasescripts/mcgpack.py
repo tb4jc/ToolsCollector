@@ -1,5 +1,5 @@
 #
-# Script for updating MCG Master configurations to new gien version.
+# Script for updating MCG Pack configurations to new given versions.
 #
 
 import fileinput
@@ -7,35 +7,6 @@ import string
 import sys
 import os
 from pathlib import *
-from filesearch import find_files
-
-
-# def update_master_xml(work_dir, version_dic):
-#     result = True
-#     err_msg = 'No Error'
-#     master_files = find_files(work_dir, '.*mcg_(stand|master).*\.xml')
-#     search_list = ['0000-mcg_base', '0000-mcg_framewrk', '0000-mcg_services']
-#     for file_path, file_name in master_files:
-#         file_input_obj = fileinput.input([file_path], inplace=1)
-#         for line in file_input_obj:
-#             # for each mcg master, search line with DLU name matching any of search_list
-#             for key in search_list:
-#                 idx = string.find(line, key)
-#                 if idx > 0:
-#                     sys.stdout.write(line)
-#                     # write next four lines to file then replace with new release, update and evolution
-#                     for counter in range(0, 3, 1):
-#                         sys.stdout.write(file_input_obj.readline())
-#                     file_input_obj.readline()
-#                     sys.stdout.write('                <Release>%s</Release>\n' % version_dic['release'])
-#                     file_input_obj.readline()
-#                     sys.stdout.write('                <Update>%s</Update>\n' % version_dic['update'])
-#                     file_input_obj.readline()
-#                     sys.stdout.write('                <Evolution>%s</Evolution>\n' % version_dic['evolution'])
-#                     line = file_input_obj.readline()
-#                     break
-#             sys.stdout.write(line)
-#     return result, err_msg
 
 
 def update_device_pack_inc_file(file_path, fw_version_dic):
@@ -111,17 +82,14 @@ def update_pack_files(package_dir, version_dic):
     versions_dic = {'fw': fw_dic, 'cfg': cfg_dic, 'prod_base': prod_base_dic}
 
     mcg_base_dir = os.path.join(package_dir, 'mcg')
-    update_target(mcg_base_dir, versions_dic)
+    result, err_msg = update_target(mcg_base_dir, versions_dic)
+    if result:
+        mcg2_base_dir = os.path.join(package_dir, 'mcg2')
+        result, err_msg = update_target(mcg2_base_dir, versions_dic)
+        if result:
+            nrtos4_base_dir = os.path.join(package_dir, 'nrtos4')
+            result, err_msg = update_target(nrtos4_base_dir, versions_dic)
 
-    mcg2_base_dir = os.path.join(package_dir, 'mcg2')
-    update_target(mcg2_base_dir, versions_dic)
-
-    nrtos4_base_dir = os.path.join(package_dir, 'nrtos4')
-    update_target(nrtos4_base_dir, versions_dic)
-
-    # result, err_msg = update_master_xml(str(mcg_master_dir), version_dic)
-    # if result:
-    #     result, err_msg = update_platform_xml(mcg_master_dir, version_dic)
     return result, err_msg
 
 
