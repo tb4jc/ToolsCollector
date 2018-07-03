@@ -2,6 +2,8 @@
 # Script for updating MCG Pack configurations to new given versions.
 #
 
+from __future__ import print_function
+
 import fileinput
 import string
 import sys
@@ -94,11 +96,11 @@ def update_pack_files(package_dir, version_dic):
 
 
 if __name__ == "__main__":
-    pack_dir = Path('c:\Users\Thomas\Development\python\ToolsCollector\src\__mcg_pack')
+    pack_dir = Path('c:\\Users\Thomas\Development\python\ToolsCollector\src\__mcg_pack')
     version_dic = {'fw': '3.22.0.1', 'cfg': '3.22.0.0', 'prod_base': '3.22.0.3'}
     result, err_msg = update_pack_files(str(pack_dir), version_dic)
-    print result
-    print err_msg
+    print(result)
+    print(err_msg)
 
 
 

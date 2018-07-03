@@ -33,8 +33,8 @@ def update_mcg_fw_versions(top_dir, new_version):
 
 
 if __name__ == "__main__":
-    test_dir = Path('c:\Users\Thomas\Development\python\ToolsCollector\src\__mcg_firmware')
+    test_dir = Path('c:\\Users\Thomas\Development\python\ToolsCollector\src\__mcg_firmware')
     if update_mcg_fw_versions(test_dir, '3.22.1.0'):
-        print "Files created"
+        print("Files created")
     else:
-        print "Error occurred"
+        print("Error occurred")

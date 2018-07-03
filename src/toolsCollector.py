@@ -3,11 +3,13 @@
 # during different actions.
 #
 import sys
-import struct
+import os
 
 from PyQt5.QtCore import pyqtSlot, QStringListModel, QByteArray
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt5.uic import loadUiType
+
+sys.path.append(os.path.abspath('.'))
 
 from tcconfig import TCConfig
 from releasescripts.mcgfirmware import *
@@ -76,14 +78,15 @@ class TCMainWindowImpl(QMainWindow, form_class):
         layout = self.config.getSectionFull(TCConfig.TCC_LAYOUT)
         if type(layout) is dict:
             if 'geometry'in layout:
-                self.restoreGeometry(QByteArray.fromBase64(layout['geometry']))
-            else:
+                byte_array = QByteArray().append(layout['geometry'])
+                self.restoreGeometry(QByteArray.fromBase64(byte_array))
+            elif 'PosX' in layout:
                 self.move(layout['PosX'], layout['PosY'])
                 self.resize(layout['Width'], layout['Height'])
             if 'state' in layout:
-                self.restoreState(QByteArray.fromBase64(layout['state']))
+                byte_array = QByteArray().append(layout['state'])
+                self.restoreState(QByteArray.fromBase64(byte_array))
         pass
-
 
     def update_version_combox(self, id, version):
         combox = self._data_dic[id]['combox']
@@ -96,7 +99,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
         combox.setCurrentIndex(0)
         self.config.updateSection(id, model.stringList())
 
-
     def update_dir_combox(self, id, path):
         combox = self._data_dic[id]['combox']
         model = self._data_dic[id]['model']
@@ -104,9 +106,9 @@ class TCMainWindowImpl(QMainWindow, form_class):
             idx = model.stringList().index(path)
             combox.setCurrentIndex(idx)
         except (ValueError):
-            combox.insertItem(0, path) # adds it automatically to the list model too
+            combox.insertItem(0, path)  # adds it automatically to the list model too
             combox.setCurrentIndex(0)
-        # fetch stringList again as it was udpated in the model through the insert above
+        # fetch stringList again as it was updated in the model through the insert above
         self.config.updateSection(id, model.stringList())
 
     @pyqtSlot()
@@ -226,13 +228,14 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.teLog.append("-------------------------------------------------------------------------------")
         self.update_version_combox(TCConfig.TCC_INST_SRC_HIST, inst_src)
         self.update_version_combox(TCConfig.TCC_INST_DST_HIST, inst_dst)
+        # can use shutil.copytree function
 
     @pyqtSlot(bool)
     def on_pbClearLog_clicked(self, checked):
         self.teLog.clear()
         
-
-form = TCMainWindowImpl()
-app.aboutToQuit.connect(form.on_app_aboutToQuit)
-form.show()
-sys.exit(app.exec_())
+if __name__ == "__main__":
+    form = TCMainWindowImpl()
+    app.aboutToQuit.connect(form.on_app_aboutToQuit)
+    form.show()
+    sys.exit(app.exec_())

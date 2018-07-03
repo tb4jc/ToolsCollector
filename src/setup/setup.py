@@ -1,6 +1,8 @@
 # ToolsCollecto/setup.py
-from cx_Freeze import setup, Executable
+import sys
+import os
 
+from cx_Freeze import setup, Executable
 
 __version__ = "0.1.0"
 
