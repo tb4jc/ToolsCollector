@@ -6,9 +6,9 @@ from __future__ import print_function
 import sys
 
 if sys.version[0] == '2':
-    import ConfigParser
+    from ConfigParser import ConfigParser, NoSectionError
 else:
-    import configparser
+    from configparser import ConfigParser, NoSectionError
 
 
 class TCConfig(object):
@@ -25,6 +25,7 @@ class TCConfig(object):
     TCC_PACK_TAG_HIST = 10
     TCC_INST_SRC_HIST = 11
     TCC_INST_DST_HIST = 12
+    TCC_INST_DIR_HIST = 13
     TCC_SECTION_NAMES = {
         TCC_CONFIGURATION:      'Configuration',
         TCC_LAYOUT:             'Layout',
@@ -38,15 +39,13 @@ class TCConfig(object):
         TCC_PACK_TAG_HIST:      'CreateMcgPackTagHistory',
         TCC_INST_SRC_HIST:      'CopyToInstallSrcHistory',
         TCC_INST_DST_HIST:      'CopyToInstallDstHistory',
+        TCC_INST_DIR_HIST:      'InstallDirHistory'
     }
 
     def __init__(self, config_file_name):
         # read ini file
         self.config_file_name = config_file_name
-        if sys.version[0] == '2':
-            self.config = ConfigParser.ConfigParser()
-        else:
-            self.config = configparser.ConfigParser()
+        self.config = ConfigParser()
         self.config.optionxform = str
         self.config.read(config_file_name)
         self.tc_config_meta = {
@@ -59,7 +58,8 @@ class TCConfig(object):
             self.TCC_PACK_BRNCH_HIST: {'max_options': 10},
             self.TCC_PACK_TAG_HIST: {'max_options': 10},
             self.TCC_INST_SRC_HIST: {'max_options': 10},
-            self.TCC_INST_DST_HIST: {'max_options': 10}
+            self.TCC_INST_DST_HIST: {'max_options': 10},
+            self.TCC_INST_DIR_HIST: {'max_options': 10}
         }
 
     def saveConfig(self, config_file_name):
@@ -83,7 +83,7 @@ class TCConfig(object):
         try:
             for name, value in self.config.items(self.TCC_SECTION_NAMES[section_id]):
                 valueList.append(value)
-        except configparser.NoSectionError:
+        except NoSectionError:
             print('Section %s does not exists', self.TCC_SECTION_NAMES[section_id])
         except:
             print('Unexpected error:', sys.exc_info()[0])
@@ -98,7 +98,7 @@ class TCConfig(object):
                         section_list[option_name] = option_value
                     else:
                         section_list[option_name] = int(option_value)
-            except configparser.NoSectionError:
+            except NoSectionError:
                 print('Section %s does not exists', self.TCC_SECTION_NAMES[section_id])
             except:
                 print('Unexpected error:', sys.exc_info()[0])
@@ -113,7 +113,7 @@ class TCConfig(object):
             for option_name in new_section_data:
                 try:
                     self.config.set(self.TCC_SECTION_NAMES[section_id], option_name, new_section_data[option_name])
-                except configparser.NoSectionError:
+                except NoSectionError:
                     print('Section %s does not exists', self.TCC_SECTION_NAMES[section_id])
                 except:
                     print('Unexpected error:', sys.exc_info()[0])

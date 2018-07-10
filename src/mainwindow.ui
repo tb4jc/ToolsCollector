@@ -551,13 +551,13 @@
            <widget class="QLabel" name="label_6">
             <property name="minimumSize">
              <size>
-              <width>110</width>
+              <width>100</width>
               <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>110</width>
+              <width>100</width>
               <height>16777215</height>
              </size>
             </property>
@@ -702,13 +702,13 @@
            <widget class="QLabel" name="label">
             <property name="minimumSize">
              <size>
-              <width>110</width>
+              <width>100</width>
               <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>110</width>
+              <width>100</width>
               <height>16777215</height>
              </size>
             </property>
@@ -808,16 +808,63 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pbCopyMcgFwToInstLoc">
+           <widget class="QComboBox" name="cbMcgFwInstDirs">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="minimumSize">
              <size>
-              <width>210</width>
+              <width>300</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="editable">
+             <bool>true</bool>
+            </property>
+            <property name="insertPolicy">
+             <enum>QComboBox::InsertAtTop</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbInstLocSel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>20</width>
               <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>210</width>
+              <width>20</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbCopyMcgFwToInstLoc">
+            <property name="minimumSize">
+             <size>
+              <width>175</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>175</width>
               <height>16777215</height>
              </size>
             </property>
@@ -825,7 +872,7 @@
              <locale language="English" country="UnitedStates"/>
             </property>
             <property name="text">
-             <string>Copy MCG Firmware To Install Loc</string>
+             <string>Copy MCG FW To Install Loc</string>
             </property>
            </widget>
           </item>
@@ -963,6 +1010,8 @@
   <tabstop>pbCreateMcgPackTags</tabstop>
   <tabstop>cbMcgFwRepoVersions</tabstop>
   <tabstop>cbMcgFwInstVersions</tabstop>
+  <tabstop>cbMcgFwInstDirs</tabstop>
+  <tabstop>pbInstLocSel</tabstop>
   <tabstop>pbCopyMcgFwToInstLoc</tabstop>
   <tabstop>pbClearLog</tabstop>
   <tabstop>teLog</tabstop>

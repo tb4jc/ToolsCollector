@@ -60,6 +60,9 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.inst_dsts_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_INST_DST_HIST))
         self.cbMcgFwInstVersions.setModel(self.inst_dsts_model)
 
+        self.inst_dirs_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_INST_DIR_HIST))
+        self.cbMcgFwInstDirs.setModel(self.inst_dirs_model)
+
         self._data_dic = {
             TCConfig.TCC_MCG_FW_DIR_HIST:    {'combox': self.cbMcgFwDirs,             'model': self.mcg_fw_dir_model},
             TCConfig.TCC_MCG_FW_VERS_HIST:   {'combox': self.cbMcgFwVersions,         'model': self.mcg_fw_versions},
@@ -70,7 +73,8 @@ class TCMainWindowImpl(QMainWindow, form_class):
             TCConfig.TCC_PACK_BRNCH_HIST:    {'combox': self.cbPackSrcBranchVersions, 'model': self.pack_branches_model},
             TCConfig.TCC_PACK_TAG_HIST:      {'combox': self.cbMcgPackTagVersions,    'model': self.pack_tags_model},
             TCConfig.TCC_INST_SRC_HIST:      {'combox': self.cbMcgFwRepoVersions,     'model': self.inst_srcs_model},
-            TCConfig.TCC_INST_DST_HIST:      {'combox': self.cbMcgFwInstVersions,     'model': self.inst_dsts_model}
+            TCConfig.TCC_INST_DST_HIST:      {'combox': self.cbMcgFwInstVersions,     'model': self.inst_dsts_model},
+            TCConfig.TCC_INST_DIR_HIST:      {'combox': self.cbMcgFwInstDirs,         'model': self.inst_dirs_model}
         }
 
         self.teLog.setFontFamily('Courier New')
@@ -105,7 +109,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
         try:
             idx = model.stringList().index(path)
             combox.setCurrentIndex(idx)
-        except (ValueError):
+        except ValueError:
             combox.insertItem(0, path)  # adds it automatically to the list model too
             combox.setCurrentIndex(0)
         # fetch stringList again as it was updated in the model through the insert above
@@ -186,9 +190,8 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.teLog.append("pbPackDirSel clicked")
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks
-        dir = QFileDialog.getExistingDirectory(self, "Select MCG Pack Directory", "c:", options = options)
-        selected_dir = str(dir)
-        self.update_dir_combox(TCConfig.TCC_MCG_PACK_DIR_HIST, selected_dir)
+        selected_dir = QFileDialog.getExistingDirectory(self, "Select MCG Pack Directory", "c:", options = options)
+        self.update_dir_combox(TCConfig.TCC_MCG_PACK_DIR_HIST, str(selected_dir))
 
     @pyqtSlot(bool)
     def on_pbUpdateMcgPackVersions_clicked(self, checked):
@@ -219,9 +222,18 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.update_version_combox(TCConfig.TCC_PACK_TAG_HIST, tag_version)
 
     @pyqtSlot(bool)
+    def on_pbInstLocSel_clicked(self, checked):
+        # self.teLog.append("pbInstLocSel clicked")
+        options = QFileDialog.Options()
+        options |= QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks
+        selected_dir = QFileDialog.getExistingDirectory(self, "Select MCG FW Install Directory", "c:", options=options)
+        self.update_dir_combox(TCConfig.TCC_INST_DIR_HIST, str(selected_dir))
+
+    @pyqtSlot(bool)
     def on_pbCopyMcgFwToInstLoc_clicked(self, checked):
         inst_src = self.cbMcgFwRepoVersions.currentText()
         inst_dst = self.cbMcgFwInstVersions.currentText()
+        top_dir = Path(self.cbMcgFwInstDirs.currentText())
         self.teLog.append("===============================================================================")
         msg = "CopyMcgFwToInstLoc clicked with src = %s and dst = %s" % (inst_src, inst_dst)
         self.teLog.append(msg)
