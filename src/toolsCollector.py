@@ -2,8 +2,11 @@
 # Tools Collector which provides easy access to multiple tools developed
 # during different actions.
 #
+from __future__ import print_function
+
 import sys
 import os
+import subprocess
 
 from PyQt5.QtCore import pyqtSlot, QStringListModel, QByteArray
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
@@ -15,6 +18,7 @@ from tcconfig import TCConfig
 from releasescripts.mcgfirmware import *
 from releasescripts.mcgconfig import *
 from releasescripts.mcgpack import *
+from releasescripts.copytoinstall import *
 
 TOOLS_COLLECTOR_INI_FILE = 'toolscollector.ini'
 
@@ -237,10 +241,16 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.teLog.append("===============================================================================")
         msg = "CopyMcgFwToInstLoc clicked with src = %s and dst = %s" % (inst_src, inst_dst)
         self.teLog.append(msg)
-        self.teLog.append("-------------------------------------------------------------------------------")
         self.update_version_combox(TCConfig.TCC_INST_SRC_HIST, inst_src)
         self.update_version_combox(TCConfig.TCC_INST_DST_HIST, inst_dst)
-        # can use shutil.copytree function
+        result, err_msg = copy_fw_to_install_dir(str(inst_src), str(inst_dst), str(top_dir))
+        if result == 0:
+            self.teLog.append("Copying MCG Fw succeeded with output:")
+            self.teLog.append(err_msg)
+        else:
+            self.teLog.append("Copying failed with error %d" % result)
+            self.teLog.append(err_msg)
+        self.teLog.append("-------------------------------------------------------------------------------")
 
     @pyqtSlot(bool)
     def on_pbClearLog_clicked(self, checked):
