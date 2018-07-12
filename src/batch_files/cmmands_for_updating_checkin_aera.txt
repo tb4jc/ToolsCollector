@@ -1,0 +1,5 @@
+
+
+cd /opt/tcms/checkin/doc/1.14.0.0/05_MCG_Platform_Product/A02_MCG/B05_MCG_Embedded_Software/
+cp -aR /opt/tcms/repository/products/mcg/?.22.0.4/installer/* .
+cp -aR /opt/tcms/repository/products/mcg/?.22.0.4/develop/mcg-platf_?.22.0.4_dev-pkg.* .
