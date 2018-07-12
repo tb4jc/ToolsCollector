@@ -224,6 +224,14 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.teLog.append("-------------------------------------------------------------------------------")
         self.update_version_combox(TCConfig.TCC_PACK_BRNCH_HIST, branch_version)
         self.update_version_combox(TCConfig.TCC_PACK_TAG_HIST, tag_version)
+        result, err_msg = create_pack_tags_from_branch(str(branch_version), str(tag_version))
+        if result == 0:
+            self.teLog.append("Copying MCG Fw succeeded with output:")
+            self.teLog.append(err_msg)
+        else:
+            self.teLog.append("Copying failed with error %d" % result)
+            self.teLog.append(err_msg)
+        self.teLog.append("-------------------------------------------------------------------------------")
 
     @pyqtSlot(bool)
     def on_pbInstLocSel_clicked(self, checked):
