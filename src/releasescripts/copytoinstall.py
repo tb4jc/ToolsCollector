@@ -19,7 +19,7 @@ def handle_subprocess(checkout_params):
     try:
         err_msg = subprocess.check_output(checkout_params)
     except subprocess.CalledProcessError as e:
-        print("Batch file execution failed with error %d, output = '%s'", e.returncode, e.output)
+        print("Batch file execution failed with error %d, output = '%s'" % (e.returncode, e.output))
         result = e.returncode
         err_msg = e.output
     return result, err_msg
@@ -40,7 +40,7 @@ def copy_fw_to_install_dir(repo_version, inst_version, inst_dir):
     # batch_files = os.path.join(root_dir, 'batch_files')
     global batch_files
     batch_file = os.path.join(batch_files, 'copy_fw_to_inst.cmd')
-    return handle_subprocess([batch_file,  repo_version, inst_version, inst_dir])
+    return handle_subprocess([batch_file, repo_version, inst_version, inst_dir])
 
 
 if __name__ == "__main__":
@@ -51,5 +51,4 @@ if __name__ == "__main__":
     result, err_msg = copy_fw_to_install_dir(mcgfw_repo_version, mcgfw_inst_version, str(install_dir))
     if result == 0:
         print("Batch file finished with result '%s'" % err_msg)
-    else:
-        print("Batch file failed with error %d and err_msg '%s'" % (result, err_msg))
+    # error already printed in handle_subprocess() function
