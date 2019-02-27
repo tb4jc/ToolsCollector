@@ -3,34 +3,28 @@ setlocal enabledelayedexpansion
 
 if exist ..\..\ansi.txt echo [1;33m
 echo ==============================================
-echo  Create pack tag from branch
+echo  Create pack tags from branch
 echo ==============================================
 if exist ..\..\ansi.txt echo [1;32m
 
 
 if "%1"=="" (
-    set /p REPO_VERSION="Enter full MCG FW version (V.R.U.E) in GBE Repo: "
+    set /p BRANCH_VERSION="Enter MCG Pack Branch version (V.R.U.E): "
 ) else (
-	set REPO_VERSION=%1
+	set BRANCH_VERSION=%1
 )
 
 if "%2"=="" (
-    set /p INST_DIR_NAME="Enter installation directory name (V.R.U.x or other): "
+    set /p TAG_VERSION_BASE="Enter MCG Pack Tag version (base 3.r.u.e) (V.R.U.E): "
 ) else (
-	set INST_DIR_NAME=%1
+	set TAG_VERSION_BASE=%1
 )
 
-if "%3"=="" (
-    set INST_DIR=c:\Users\Thomas\Development\python\ToolsCollector\src\__mcg_inst_dir
-) else (
-    set INST_DIR=%3
-)
-
-:copy_to_inst
+:create_tags
 set OLDPATH=%PATH%
 set PATH=.;%OLDPATH%
 
-echo "Called with option 1=%REPO_VERSION%, 2=%INST_DIR_NAME%, 3=%INST_DIR%"
+echo "Called with option 1=%BRANCH_VERSION%, 2=%TAG_VERSION_BASE%"
 
 set PATH=%OLDPATH%
 
