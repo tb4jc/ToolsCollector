@@ -18,7 +18,7 @@ def update_device_pack_inc_file(file_path, fw_version_dic):
     counter = 0
     for line in fileinput.input([file_path], inplace=1):
         counter += 1
-        idx_in_line = string.find(line, 'SCI1VERSION')
+        idx_in_line = line.find('SCI1VERSION')
         if idx_in_line >= 0:
             new_line_start = line[:line.find('.')+1]
             line = new_line_start + version_rub
@@ -35,15 +35,15 @@ def update_versions_inc_file(file_path, version_dic):
     counter = 0
     for line in fileinput.input([file_path], inplace=1):
         counter += 1
-        idx_in_line = string.find(line, 'nrtos_prod_base')
+        idx_in_line = line.find('nrtos_prod_base')
         if idx_in_line >= 0:
             line = 'nrtos_prod_base/' + version_dic['prod_base']['full'] + '\n'
         else:
-            idx_in_line = string.find(line, 'mcg_firmware')
+            idx_in_line = line.find('mcg_firmware')
             if idx_in_line >= 0:
                 line = 'mcg_firmware/' + version_dic['fw']['full'] + '\n'
             else:
-                idx_in_line = string.find(line, 'mcg_config/')
+                idx_in_line = line.find('mcg_config/')
                 if idx_in_line >= 0:
                     line = 'mcg_config/' + version_dic['cfg']['full'] + '\n'
         sys.stdout.write(line)

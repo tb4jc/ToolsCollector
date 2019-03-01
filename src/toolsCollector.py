@@ -156,7 +156,11 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.teLog.append(msg)
         self.teLog.append("-------------------------------------------------------------------------------")
         self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcgFwVersion)
-        result, error_msg = update_mcg_fw_versions(top_dir, mcgFwVersion)
+        try:
+            result, error_msg = update_mcg_fw_versions(top_dir, mcgFwVersion)
+        except:
+            result = False
+            error_msg = sys.exc_info()[0]
         if result:
             self.teLog.append("Mcg Firmware version files updated")
         else:
@@ -182,7 +186,11 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.teLog.append(msg)
         self.teLog.append("-------------------------------------------------------------------------------")
         self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcgFwVersion)
-        result, error_msg = update_mcg_master_files(str(top_dir), mcgFwVersion)
+        try:
+            result, error_msg = update_mcg_master_files(str(top_dir), mcgFwVersion)
+        except:
+            result = False
+            error_msg = sys.exc_info()[0]
         if result:
             self.teLog.append("Mcg Master files updated")
         else:
@@ -225,7 +233,11 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.teLog.append("-------------------------------------------------------------------------------")
         self.update_version_combox(TCConfig.TCC_PACK_BRNCH_HIST, branch_version)
         self.update_version_combox(TCConfig.TCC_PACK_TAG_HIST, tag_version)
-        result, err_msg = create_pack_tags_from_branch(str(branch_version), str(tag_version))
+        try:
+            result, err_msg = create_pack_tags_from_branch(str(branch_version), str(tag_version))
+        except:
+            result = 1
+            error_msg = sys.exc_info()[0]
         if result == 0:
             self.teLog.append("Creating MCG Pack Tags succeeded with output:")
             self.teLog.append(err_msg)
@@ -258,7 +270,11 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.update_version_combox(TCConfig.TCC_INST_SRC_HIST, inst_src)
         self.update_version_combox(TCConfig.TCC_INST_DST_HIST, inst_dst)
         self.update_dir_combox(TCConfig.TCC_INST_DIR_HIST, top_dir)
-        result, err_msg = copy_fw_to_install_dir(inst_src, inst_dst, top_dir)
+        try:
+            result, err_msg = copy_fw_to_install_dir(inst_src, inst_dst, top_dir)
+        except:
+            result = 1
+            error_msg = sys.exc_info()[0]
         if result == 0:
             self.teLog.append("Copying MCG Fw succeeded with output:")
             self.teLog.append(err_msg)

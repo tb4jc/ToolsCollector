@@ -19,7 +19,7 @@ def update_master_xml(work_dir, version_dic):
         for line in file_input_obj:
             # for each mcg master, search line with DLU name matching any of search_list
             for key in search_list:
-                idx = string.find(line, key)
+                idx = line.find(key)
                 if idx > 0:
                     sys.stdout.write(line)
                     # write next four lines to file then replace with new release, update and evolution
@@ -34,6 +34,7 @@ def update_master_xml(work_dir, version_dic):
                     line = file_input_obj.readline()
                     break
             sys.stdout.write(line)
+        file_input_obj.close()
     return result, err_msg
 
 
@@ -50,7 +51,7 @@ def update_platform_xml(work_dir, version_dic):
         full_version = search_data[file_name] + version_rub
         platform_files_input_obj = fileinput.input([file_path], inplace=1)
         for line in platform_files_input_obj:
-            idx_in_line = string.find(line, '<SciMdluName>0000-mcg_stand_nrt')
+            idx_in_line = line.find('<SciMdluName>0000-mcg_stand_nrt')
             if idx_in_line > 0:
                 # write current line then get next line
                 sys.stdout.write(line)
@@ -65,7 +66,7 @@ def update_platform_xml(work_dir, version_dic):
 def update_mcg_master_files(top_dir, new_version):
     result = True
     err_msg = "No error"
-    mcg_master_dir = os.path.join(top_dir, '06_mcg_firmware/mcg_master_cfg')
+    mcg_master_dir = os.path.join(top_dir, '06_mcg_firmware_cfg/mcg_master_cfg')
     version_vrue = new_version.split('.')
     version_dic = {'release': version_vrue[1],
                    'update': version_vrue[2],
