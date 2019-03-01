@@ -26,11 +26,9 @@ def handle_subprocess(checkout_params):
 
 
 def create_pack_tags_from_branch(branch_version, tag_version):
-    # root_dir, head = os.path.split(os.path.dirname(__file__))
-    # batch_files = os.path.join(root_dir, 'batch_files')
     global batch_files
     batch_file = os.path.join(batch_files, 'create_pack_tag_from_branch.cmd')
-    return handle_subprocess([batch_file, branch_version, tag_version])
+    return handle_subprocess([batch_file, "-b", branch_version, "-t", tag_version])
 
 
 def copy_fw_to_install_dir(repo_version, inst_version, inst_dir):
@@ -40,7 +38,11 @@ def copy_fw_to_install_dir(repo_version, inst_version, inst_dir):
     # batch_files = os.path.join(root_dir, 'batch_files')
     global batch_files
     batch_file = os.path.join(batch_files, 'copy_fw_to_inst.cmd')
-    return handle_subprocess([batch_file, repo_version, inst_version, inst_dir])
+    cmd_list = [batch_file, "-s", repo_version, "-d", inst_version]
+    if inst_dir != "":
+        cmd_list.append("-p")
+        cmd_list.append(inst_dir)
+    return handle_subprocess(cmd_list)
 
 
 if __name__ == "__main__":

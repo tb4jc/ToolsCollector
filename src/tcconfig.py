@@ -61,6 +61,10 @@ class TCConfig(object):
             self.TCC_INST_DST_HIST: {'max_options': 10},
             self.TCC_INST_DIR_HIST: {'max_options': 10}
         }
+        tmp_available_sections = self.config.sections()
+        for section_id, section_name in self.TCC_SECTION_NAMES.items():
+            if section_name not in tmp_available_sections:
+                self.config.add_section(section_name)
 
     def saveConfig(self, config_file_name):
         # watch out, write expects file open as text file - not binary!!

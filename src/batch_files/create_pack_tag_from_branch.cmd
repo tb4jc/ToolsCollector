@@ -7,32 +7,108 @@ echo  Create pack tags from branch
 echo ==============================================
 if exist ..\..\ansi.txt echo [1;32m
 
+REM Batch file to create pack tags for MCG Platform Releases
+REM option '-b' - branch name e.g. 3.21.0.x
+REM option '-t' - tag name for NRTOS1 based 3.r.u.e
 
-if "%1"=="" (
-    set /p BRANCH_VERSION="Enter MCG Pack Branch version (V.R.U.E): "
+set REL_BRANCH_VERSION=
+set NRTOS1_TAG_VERSION=
+
+:parse
+if "%~1"=="" goto endparse
+if "%~1"=="-b" (
+	if "%~2"=="" goto error
+	set REL_BRANCH_VERSION=%~2
+	shift
+) else if "%~1"=="-t" (
+	if "%~2"=="" goto error
+	set NRTOS1_TAG_VERSION=%~2
+	shift
 ) else (
-	set BRANCH_VERSION=%1
+	goto error
+)
+shift
+goto parse
+
+:endparse
+
+if "%REL_BRANCH_VERSION%"=="" (
+	set /p REL_BRANCH_VERSION="Enter version of MCG Pack Release Branch (V.R.U.x): "
 )
 
-if "%2"=="" (
-    set /p TAG_VERSION_BASE="Enter MCG Pack Tag version (base 3.r.u.e) (V.R.U.E): "
-) else (
-	set TAG_VERSION_BASE=%1
+if "%NRTOS1_TAG_VERSION%"=="" (
+	set /p NRTOS1_TAG_VERSION="Enter version of MCG Pack Release Tag (only base 3, V.R.U.E): "
 )
 
-:create_tags
-set OLDPATH=%PATH%
-set PATH=.;%OLDPATH%
+set NRTOS2_TAG_VERSION=4.%NRTOS1_TAG_VERSION:~2%
+set NRTOS4_TAG_VERSION=5.%NRTOS1_TAG_VERSION:~2%
 
-echo "Called with option 1=%BRANCH_VERSION%, 2=%TAG_VERSION_BASE%"
 
-set PATH=%OLDPATH%
+:create
+echo Release branch: %REL_BRANCH_VERSION%
+echo Tag Versions:   %NRTOS1_TAG_VERSION%, %NRTOS2_TAG_VERSION%, %NRTOS4_TAG_VERSION%
 
+echo Calling "svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% > NUL"
+svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% > NUL
+if not errorlevel 1 goto exists1
+
+echo Calling 'svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% -m "MCG Platform Release %NRTOS1_TAG_VERSION%"'
+REM svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% -m "MCG Platform Release %NRTOS1_TAG_VERSION%"
+REM if errorlevel 1 (
+REM    echo Creating SVN MCG Pack tag %NRTOS1_TAG_VERSION% failed
+REM    goto EOF
+REM )
+REM goto create2
+
+:exists1
+echo Release Tag %NRTOS1_TAG_VERSION% already exists!
+
+:create2
+echo Calling "svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% > NUL"
+svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% > NUL
+if not errorlevel 1 goto exists2
+
+echo Calling 'svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% -m "MCG Platform Release %NRTOS2_TAG_VERSION%"'
+REM svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% -m "MCG Platform Release %NRTOS2_TAG_VERSION%"
+REM if not errorlevel 0 (
+    REM echo Creating SVN MCG Pack tag %NRTOS2_TAG_VERSION% failed
+    REM goto EOF
+REM )
+REM goto create4
+
+:exists2
+echo Release Tag %NRTOS2_TAG_VERSION% already exists!
+
+:create4
+echo Calling "svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% > NUL"
+svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% > NUL
+if not errorlevel 1 goto exists4
+
+echo Calling 'svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% -m "MCG Platform Release %NRTOS4_TAG_VERSION%"'
+REM svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% -m "MCG Platform Release %NRTOS4_TAG_VERSION%"
+REM if errorlevel 1 (
+    REM echo Creating SVN MCG Pack tag %NRTOS4_TAG_VERSION% failed
+    REM goto EOF
+REM )
+
+goto EOF
+
+:exists4
+echo Release Tag %NRTOS4_TAG_VERSION% already exists!
+goto EOF
+
+:error
+echo Wrong or missing parameter
+echo Usage:  %FILENAME% [-b V.R.U.E] [-t V.R.U.E]
 echo.
-echo ... done!
+echo V is always the base version (3), 4 and 5 are build automatically
+
+:EOF
+echo.
 if exist ..\..\ansi.txt echo [1;33m
 echo ==========================================
 if exist ..\..\ansi.txt echo [0m
-REM echo.
 
 if "%1"=="1.2.3.4" exit 1
+
+REM EOF

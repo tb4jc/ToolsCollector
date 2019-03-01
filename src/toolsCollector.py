@@ -143,9 +143,9 @@ class TCMainWindowImpl(QMainWindow, form_class):
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
         options |= QFileDialog.DontResolveSymlinks
-        dir = QFileDialog.getExistingDirectory(self, "Select MCG Firmware Directory", 'c:', options = options)
-        selected_dir = str(dir)
-        self.update_dir_combox(TCConfig.TCC_MCG_FW_DIR_HIST, selected_dir)
+        selected_dir = QFileDialog.getExistingDirectory(self, "Select MCG Firmware Directory", 'c:', options = options)
+        if selected_dir is not None and selected_dir != "":
+            self.update_dir_combox(TCConfig.TCC_MCG_FW_DIR_HIST, str(Path(selected_dir)))
 
     @pyqtSlot(bool)
     def on_pbUpdateMcgFwVersions_clicked(self, checked):
@@ -169,9 +169,9 @@ class TCMainWindowImpl(QMainWindow, form_class):
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
         options |= QFileDialog.DontResolveSymlinks
-        dir = QFileDialog.getExistingDirectory(self, "Select MCG Config Directory", 'c:', options = options)
-        selected_dir = str(dir)
-        self.update_dir_combox(TCConfig.TCC_MCG_CFG_DIR_HIST, selected_dir)
+        selected_dir = QFileDialog.getExistingDirectory(self, "Select MCG Config Directory", 'c:', options = options)
+        if selected_dir is not None and selected_dir != "":
+            self.update_dir_combox(TCConfig.TCC_MCG_CFG_DIR_HIST, str(Path(selected_dir)))
 
     @pyqtSlot(bool)
     def on_pbUpdateMcgMasters_clicked(self, checked):
@@ -195,7 +195,8 @@ class TCMainWindowImpl(QMainWindow, form_class):
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks
         selected_dir = QFileDialog.getExistingDirectory(self, "Select MCG Pack Directory", "c:", options = options)
-        self.update_dir_combox(TCConfig.TCC_MCG_PACK_DIR_HIST, str(selected_dir))
+        if selected_dir is not None and selected_dir != "":
+            self.update_dir_combox(TCConfig.TCC_MCG_PACK_DIR_HIST, str(Path(selected_dir)))
 
     @pyqtSlot(bool)
     def on_pbUpdateMcgPackVersions_clicked(self, checked):
@@ -226,7 +227,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.update_version_combox(TCConfig.TCC_PACK_TAG_HIST, tag_version)
         result, err_msg = create_pack_tags_from_branch(str(branch_version), str(tag_version))
         if result == 0:
-            self.teLog.append("Copying MCG Fw succeeded with output:")
+            self.teLog.append("Creating MCG Pack Tags succeeded with output:")
             self.teLog.append(err_msg)
         else:
             self.teLog.append("Copying failed with error %d" % result)
@@ -239,19 +240,25 @@ class TCMainWindowImpl(QMainWindow, form_class):
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks
         selected_dir = QFileDialog.getExistingDirectory(self, "Select MCG FW Install Directory", "c:", options=options)
-        self.update_dir_combox(TCConfig.TCC_INST_DIR_HIST, str(selected_dir))
+        if selected_dir is not None and selected_dir != "":
+            self.update_dir_combox(TCConfig.TCC_INST_DIR_HIST, str(Path(selected_dir)))
 
     @pyqtSlot(bool)
     def on_pbCopyMcgFwToInstLoc_clicked(self, checked):
         inst_src = self.cbMcgFwRepoVersions.currentText()
         inst_dst = self.cbMcgFwInstVersions.currentText()
-        top_dir = Path(self.cbMcgFwInstDirs.currentText())
+        str_current_mcg_fw_inst_dir = self.cbMcgFwInstDirs.currentText()
+        top_dir = ""
+        if str_current_mcg_fw_inst_dir != "":
+            top_dir = str(Path(str_current_mcg_fw_inst_dir)) # create windows path
+            top_dir = str_current_mcg_fw_inst_dir
         self.teLog.append("===============================================================================")
         msg = "CopyMcgFwToInstLoc clicked with src = %s and dst = %s" % (inst_src, inst_dst)
         self.teLog.append(msg)
         self.update_version_combox(TCConfig.TCC_INST_SRC_HIST, inst_src)
         self.update_version_combox(TCConfig.TCC_INST_DST_HIST, inst_dst)
-        result, err_msg = copy_fw_to_install_dir(str(inst_src), str(inst_dst), str(top_dir))
+        self.update_dir_combox(TCConfig.TCC_INST_DIR_HIST, top_dir)
+        result, err_msg = copy_fw_to_install_dir(inst_src, inst_dst, top_dir)
         if result == 0:
             self.teLog.append("Copying MCG Fw succeeded with output:")
             self.teLog.append(err_msg)
