@@ -9,8 +9,8 @@ def update_mcg_fw_versions(top_dir, new_version):
     err_msg = "No error"
     mcg_fw_version_files = ['mcgbase/McgBase/version_file', 'mcgframework/McgFramework/version_file', 'mcgservices/McgServices/version_file']
     new_version_vrue = new_version.split('.')
-    new_version_file_content = 'version="%s"\nrelease="%s"\nupdate="%s"\nevolution="%s"\n' % (new_version_vrue[0], new_version_vrue[1], new_version_vrue[2], new_version_vrue[3])
-    new_build_ver = 'version=\"' + new_version + '\"'
+    new_version_file_content = 'version="%s"\nrevision="%s"\nupdate="%s"\nevolution="%s"\n' % (new_version_vrue[0], new_version_vrue[1], new_version_vrue[2], new_version_vrue[3])
+    new_build_ver = 'VERSION=' + new_version
     bld_ver_path = top_dir / 'bld/build.ver'
     if bld_ver_path.parent.exists():
         out_file = open(str(bld_ver_path), 'w')

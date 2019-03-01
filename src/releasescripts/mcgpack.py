@@ -14,7 +14,7 @@ from pathlib import *
 def update_device_pack_inc_file(file_path, fw_version_dic):
     result = True
     err_msg = 'No Error'
-    version_rub = '%s.%s.%s\n' % (fw_version_dic['release'], fw_version_dic['update'], fw_version_dic['evolution'])
+    version_rub = '%s.%s.%s\n' % (fw_version_dic['revision'], fw_version_dic['update'], fw_version_dic['build'])
     counter = 0
     for line in fileinput.input([file_path], inplace=1):
         counter += 1
@@ -76,11 +76,11 @@ def update_pack_files(package_dir, version_dic):
     err_msg = "No error"
 
     fw_split = version_dic['fw'].split('.')
-    fw_dic = {'full': version_dic['fw'], 'version': fw_split[0], 'release': fw_split[1], 'update': fw_split[2], 'evolution': fw_split[3]}
+    fw_dic = {'full': version_dic['fw'], 'version': fw_split[0], 'revision': fw_split[1], 'update': fw_split[2], 'build': fw_split[3]}
     cfg_split = version_dic['cfg'].split('.')
-    cfg_dic = {'full': version_dic['cfg'], 'version': cfg_split[0], 'release': cfg_split[1], 'update': cfg_split[2], 'evolution': cfg_split[3]}
+    cfg_dic = {'full': version_dic['cfg'], 'version': cfg_split[0], 'revision': cfg_split[1], 'update': cfg_split[2], 'build': cfg_split[3]}
     prod_base_version_split = version_dic['prod_base'].split('.')
-    prod_base_dic = {'full': version_dic['prod_base'], 'version': prod_base_version_split[0], 'release': fw_split[1], 'update': fw_split[2], 'evolution': prod_base_version_split[3]}
+    prod_base_dic = {'full': version_dic['prod_base'], 'version': prod_base_version_split[0], 'revision': fw_split[1], 'update': fw_split[2], 'build': prod_base_version_split[3]}
     versions_dic = {'fw': fw_dic, 'cfg': cfg_dic, 'prod_base': prod_base_dic}
 
     mcg_base_dir = os.path.join(package_dir, 'mcg')
