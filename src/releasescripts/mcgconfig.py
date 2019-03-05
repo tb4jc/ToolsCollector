@@ -15,7 +15,7 @@ def update_master_xml(work_dir, version_dic):
     master_files = find_files(work_dir, '.*mcg_(stand|master).*\.xml')
     search_list = ['0000-mcg_base', '0000-mcg_framewrk', '0000-mcg_services']
     for file_path, file_name in master_files:
-        file_input_obj = fileinput.input([file_path], inplace=1)
+        file_input_obj = fileinput.input([file_path], inplace=1, mode='rb')
         for line in file_input_obj:
             # for each mcg master, search line with DLU name matching any of search_list
             for key in search_list:
@@ -49,7 +49,7 @@ def update_platform_xml(work_dir, version_dic):
     for file_path, file_name in platform_files:
         # for each platform master, search version line
         full_version = search_data[file_name] + version_rub
-        platform_files_input_obj = fileinput.input([file_path], inplace=1)
+        platform_files_input_obj = fileinput.input([file_path], inplace=1, mode='rb')
         for line in platform_files_input_obj:
             idx_in_line = line.find('<SciMdluName>0000-mcg_stand_nrt')
             if idx_in_line > 0:

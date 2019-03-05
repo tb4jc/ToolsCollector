@@ -12,7 +12,7 @@ from PyQt5.QtCore import pyqtSlot, QStringListModel, QByteArray
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt5.uic import loadUiType
 
-sys.path.append(os.path.abspath('.'))
+# sys.path.append(os.path.abspath('.'))
 
 from tcconfig import TCConfig
 from releasescripts.mcgfirmware import *
@@ -120,7 +120,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.config.updateSection(id, model.stringList())
 
     @pyqtSlot()
-    def on_app_aboutToQuit(self):
+    def on_app_about_to_quit(self):
         pos = self.pos()
         layout = dict()
         layout['PosX'] = str(pos.x())
@@ -150,22 +150,23 @@ class TCMainWindowImpl(QMainWindow, form_class):
     @pyqtSlot(bool)
     def on_pbUpdateMcgFwVersions_clicked(self, checked):
         top_dir = Path(self.cbMcgFwDirs.currentText())
-        mcgFwVersion = self.cbMcgFwVersions.currentText()
+        mcg_fw_version = self.cbMcgFwVersions.currentText()
         self.teLog.append("===============================================================================")
-        msg = "UpdateMcgFwVersions clicked with parameter = %s" % mcgFwVersion
+        msg = "UpdateMcgFwVersions clicked with parameter = %s" % mcg_fw_version
         self.teLog.append(msg)
         self.teLog.append("-------------------------------------------------------------------------------")
-        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcgFwVersion)
+        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcg_fw_version)
         try:
-            result, error_msg = update_mcg_fw_versions(top_dir, mcgFwVersion)
+            local_result, local_error_msg = update_mcg_fw_versions(top_dir, mcg_fw_version)
         except:
-            result = False
-            error_msg = sys.exc_info()[0]
-        if result:
+            local_result = False
+            local_error_msg = str(sys.exc_info()[0])
+        if local_result:
             self.teLog.append("Mcg Firmware version files updated")
         else:
             self.teLog.append("Failed to update Mcg Firmware version files.")
-            self.teLog.append("Error = " + error_msg)
+            self.teLog.append("Error = " + local_error_msg)
+        self.teLog.append("-------------------------------------------------------------------------------")
 
     @pyqtSlot(bool)
     def on_pbCfgDirSel_clicked(self, checked):
@@ -180,22 +181,23 @@ class TCMainWindowImpl(QMainWindow, form_class):
     @pyqtSlot(bool)
     def on_pbUpdateMcgMasters_clicked(self, checked):
         top_dir = Path(self.cbMcgCfgDirs.currentText())
-        mcgFwVersion = self.cbMcgFwVersions.currentText()
+        mcg_fw_version = self.cbMcgFwVersions.currentText()
         self.teLog.append("===============================================================================")
-        msg = "UpdateMcgMasters clicked with parameter = %s" % mcgFwVersion
+        msg = "UpdateMcgMasters clicked with parameter = %s" % mcg_fw_version
         self.teLog.append(msg)
         self.teLog.append("-------------------------------------------------------------------------------")
-        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcgFwVersion)
+        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcg_fw_version)
         try:
-            result, error_msg = update_mcg_master_files(str(top_dir), mcgFwVersion)
+            local_result, local_err_msg = update_mcg_master_files(str(top_dir), mcg_fw_version)
         except:
-            result = False
-            error_msg = sys.exc_info()[0]
-        if result:
+            local_result = False
+            local_err_msg = sys.exc_info()[0]
+        if local_result:
             self.teLog.append("Mcg Master files updated")
         else:
             self.teLog.append("Failed to update Mcg Master files.")
-            self.teLog.append("Error = " + error_msg)
+            self.teLog.append("Error = " + local_err_msg)
+        self.teLog.append("-------------------------------------------------------------------------------")
 
     @pyqtSlot(bool)
     def on_pbPackDirSel_clicked(self, checked):
@@ -208,20 +210,26 @@ class TCMainWindowImpl(QMainWindow, form_class):
 
     @pyqtSlot(bool)
     def on_pbUpdateMcgPackVersions_clicked(self, checked):
-        mcgFwVersion = self.cbMcgFwVersions.currentText()
-        mcgCfgVersion = self.cbMcgCfgVersions.currentText()
-        prodBaseVersion = self.cbProdBaseVersions.currentText()
+        mcg_fw_version = self.cbMcgFwVersions.currentText()
+        mcg_cfg_version = self.cbMcgCfgVersions.currentText()
+        prod_base_version = self.cbProdBaseVersions.currentText()
         pack_dir = self.cbMcgPackDirs.currentText()
         self.teLog.append("===============================================================================")
         msg = "UpdateMcgPackVersions clicked with parameters:\n    Firmware = %s\n    Config   = %s\n    ProdBase = %s" % \
-              (mcgFwVersion, mcgCfgVersion, prodBaseVersion)
+              (mcg_fw_version, mcg_cfg_version, prod_base_version)
         self.teLog.append(msg)
         self.teLog.append("-------------------------------------------------------------------------------")
-        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcgFwVersion)
-        self.update_version_combox(TCConfig.TCC_MCG_CFG_VERS_HIST, mcgCfgVersion)
-        self.update_version_combox(TCConfig.TCC_PRODBASE_VERS_HIST, prodBaseVersion)
-        version_dic = {'fw': mcgFwVersion, 'cfg': mcgCfgVersion, 'prod_base': prodBaseVersion}
-        result, err_msg = update_pack_files(pack_dir, version_dic)
+        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcg_fw_version)
+        self.update_version_combox(TCConfig.TCC_MCG_CFG_VERS_HIST, mcg_cfg_version)
+        self.update_version_combox(TCConfig.TCC_PRODBASE_VERS_HIST, prod_base_version)
+        local_version_dic = {'fw': mcg_fw_version, 'cfg': mcg_cfg_version, 'prod_base': prod_base_version}
+        local_result, local_err_msg = update_pack_files(pack_dir, local_version_dic)
+        if local_result:
+            self.teLog.append("Update Pack Files succeeded")
+        else:
+            self.teLog.append("Update Pack Files failed with error %d" % local_result)
+            self.teLog.append(local_err_msg)
+        self.teLog.append("-------------------------------------------------------------------------------")
 
     @pyqtSlot(bool)
     def on_pbCreateMcgPackTags_clicked(self, checked):
@@ -234,16 +242,16 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.update_version_combox(TCConfig.TCC_PACK_BRNCH_HIST, branch_version)
         self.update_version_combox(TCConfig.TCC_PACK_TAG_HIST, tag_version)
         try:
-            result, err_msg = create_pack_tags_from_branch(str(branch_version), str(tag_version))
+            local_result, local_err_msg = create_pack_tags_from_branch(str(branch_version), str(tag_version))
         except:
-            result = 1
+            local_result = 1
             error_msg = sys.exc_info()[0]
-        if result == 0:
-            self.teLog.append("Creating MCG Pack Tags succeeded with output:")
-            self.teLog.append(err_msg)
+        if local_result == 0:
+            self.teLog.append("Creating MCG Pack Tags succeeded:")
+            self.teLog.append(local_err_msg)
         else:
-            self.teLog.append("Copying failed with error %d" % result)
-            self.teLog.append(err_msg)
+            self.teLog.append("Creating MCG Pack Tags failed with error %d" % local_result)
+            self.teLog.append(local_err_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
     @pyqtSlot(bool)
@@ -271,24 +279,25 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.update_version_combox(TCConfig.TCC_INST_DST_HIST, inst_dst)
         self.update_dir_combox(TCConfig.TCC_INST_DIR_HIST, top_dir)
         try:
-            result, err_msg = copy_fw_to_install_dir(inst_src, inst_dst, top_dir)
+            local_result, local_err_msg = copy_fw_to_install_dir(inst_src, inst_dst, top_dir)
         except:
-            result = 1
+            local_result = 1
             error_msg = sys.exc_info()[0]
-        if result == 0:
-            self.teLog.append("Copying MCG Fw succeeded with output:")
-            self.teLog.append(err_msg)
+        if local_result == 0:
+            self.teLog.append("Copying MCG Fw succeeded:")
+            self.teLog.append(local_err_msg)
         else:
-            self.teLog.append("Copying failed with error %d" % result)
-            self.teLog.append(err_msg)
+            self.teLog.append("Copying MCG Fw failed with error %d" % local_result)
+            self.teLog.append(local_err_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
     @pyqtSlot(bool)
     def on_pbClearLog_clicked(self, checked):
         self.teLog.clear()
-        
+
+
 if __name__ == "__main__":
     form = TCMainWindowImpl()
-    app.aboutToQuit.connect(form.on_app_aboutToQuit)
+    app.aboutToQuit.connect(form.on_app_about_to_quit)
     form.show()
     sys.exit(app.exec_())

@@ -13,7 +13,7 @@ def update_mcg_fw_versions(top_dir, new_version):
     new_build_ver = 'VERSION=' + new_version + '\n'
     bld_ver_path = top_dir / 'bld/build.ver'
     if bld_ver_path.parent.exists():
-        out_file = open(str(bld_ver_path), 'w', newline='\n')
+        out_file = bld_ver_path.open(mode='w', newline='\n')
         out_file.write(new_build_ver)
         out_file.close()
     else:
@@ -23,7 +23,7 @@ def update_mcg_fw_versions(top_dir, new_version):
         file_path = top_dir / f
         parent_dir = file_path.parent
         if parent_dir.exists():
-            outfile = open(str(file_path), 'w', newline='\n')
+            outfile = file_path.open(mode='w', newline='\n')
             outfile.write(new_version_file_content)
             outfile.close()
         else:

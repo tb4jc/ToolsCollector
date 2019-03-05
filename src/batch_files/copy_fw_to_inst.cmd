@@ -12,6 +12,7 @@ set LOCAL_DIR=%FILE_PATH:~0,-1%
 
 set REPO_VERSION=
 set LOCAL_VERSION=
+set INST_DIR=
 
 :parse
 if "%~1"=="" goto endparse

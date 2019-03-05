@@ -33,9 +33,6 @@ def create_pack_tags_from_branch(branch_version, tag_version):
 
 def copy_fw_to_install_dir(repo_version, inst_version, inst_dir):
     # could use shutil.copytree function or call batch file
-    # copy_batch_file = 'c:/Users/Thomas/Development/python/ToolsCollector/src/batch_files/copy_fw_to_inst.cmd '
-    # root_dir, head = os.path.split(os.path.dirname(__file__))
-    # batch_files = os.path.join(root_dir, 'batch_files')
     global batch_files
     batch_file = os.path.join(batch_files, 'copy_fw_to_inst.cmd')
     cmd_list = [batch_file, "-s", repo_version, "-d", inst_version]
@@ -50,7 +47,7 @@ if __name__ == "__main__":
     mcgfw_repo_version = '3.23.0.99'
     mcgfw_repo_version = '1.2.3.4'
     mcgfw_inst_version = '3.23.0'
-    result, err_msg = copy_fw_to_install_dir(mcgfw_repo_version, mcgfw_inst_version, str(install_dir))
-    if result == 0:
-        print("Batch file finished with result '%s'" % err_msg)
+    l_result, l_err_msg = copy_fw_to_install_dir(mcgfw_repo_version, mcgfw_inst_version, str(install_dir))
+    if l_result == 0:
+        print("Batch file finished with result '%s'" % l_err_msg)
     # error already printed in handle_subprocess() function

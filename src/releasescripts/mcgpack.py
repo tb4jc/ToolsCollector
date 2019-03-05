@@ -16,7 +16,7 @@ def update_device_pack_inc_file(file_path, fw_version_dic):
     err_msg = 'No Error'
     version_rub = '%s.%s.%s\n' % (fw_version_dic['revision'], fw_version_dic['update'], fw_version_dic['build'])
     counter = 0
-    for line in fileinput.input([file_path], inplace=1):
+    for line in fileinput.input([file_path], inplace=1, mode='rb'):
         counter += 1
         idx_in_line = line.find('SCI1VERSION')
         if idx_in_line >= 0:
@@ -33,7 +33,7 @@ def update_versions_inc_file(file_path, version_dic):
     result = True
     err_msg = 'No Error'
     counter = 0
-    for line in fileinput.input([file_path], inplace=1):
+    for line in fileinput.input([file_path], inplace=1, mode='rb'):
         counter += 1
         idx_in_line = line.find('nrtos_prod_base')
         if idx_in_line >= 0:
