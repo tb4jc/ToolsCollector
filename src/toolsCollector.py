@@ -7,6 +7,7 @@ from __future__ import print_function
 import sys
 import os
 import subprocess
+import traceback
 
 from PyQt5.QtCore import pyqtSlot, QStringListModel, QByteArray
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
@@ -114,6 +115,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
             idx = model.stringList().index(path)
             combox.setCurrentIndex(idx)
         except ValueError:
+            traceback.print_exc()
             combox.insertItem(0, path)  # adds it automatically to the list model too
             combox.setCurrentIndex(0)
         # fetch stringList again as it was updated in the model through the insert above
@@ -161,6 +163,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
         except:
             local_result = False
             local_error_msg = str(sys.exc_info()[0])
+            traceback.print_exc()
         if local_result:
             self.teLog.append("Mcg Firmware version files updated")
         else:
@@ -191,7 +194,8 @@ class TCMainWindowImpl(QMainWindow, form_class):
             local_result, local_err_msg = update_mcg_master_files(str(top_dir), mcg_fw_version)
         except:
             local_result = False
-            local_err_msg = sys.exc_info()[0]
+            local_err_msg = str(sys.exc_info()[0])
+            traceback.print_exc()
         if local_result:
             self.teLog.append("Mcg Master files updated")
         else:
@@ -245,7 +249,8 @@ class TCMainWindowImpl(QMainWindow, form_class):
             local_result, local_err_msg = create_pack_tags_from_branch(str(branch_version), str(tag_version))
         except:
             local_result = 1
-            error_msg = sys.exc_info()[0]
+            local_err_msg = str(sys.exc_info()[0])
+            traceback.print_exc()
         if local_result == 0:
             self.teLog.append("Creating MCG Pack Tags succeeded:")
             self.teLog.append(local_err_msg)
@@ -282,7 +287,8 @@ class TCMainWindowImpl(QMainWindow, form_class):
             local_result, local_err_msg = copy_fw_to_install_dir(inst_src, inst_dst, top_dir)
         except:
             local_result = 1
-            error_msg = sys.exc_info()[0]
+            local_err_msg = str(sys.exc_info()[0])
+            traceback.print_exc()
         if local_result == 0:
             self.teLog.append("Copying MCG Fw succeeded:")
             self.teLog.append(local_err_msg)

@@ -1,11 +1,15 @@
-import fileinput
-import glob
 import string
-import sys
 import os
 from os.path import join
 from pathlib import *
 import re
+
+
+def dos_2_unix(filename):
+    file_contents = open(filename, "r").read()
+    f = open(filename, "w", newline="\n")
+    f.write(file_contents)
+    f.close()
 
 
 def find_files(top_dir, pattern, recursive=True):
