@@ -2,13 +2,8 @@
 # Tools Collector which provides easy access to multiple tools developed
 # during different actions.
 #
-from __future__ import print_function
 
-import xml.etree.ElementTree as xml
-from io import StringIO
-
-import pyside2uic
-from PySide2 import QtWidgets
+import pyside_extension
 from PySide2.QtCore import Slot, QStringListModel, QByteArray
 from PySide2.QtWidgets import QApplication, QMainWindow, QFileDialog
 
@@ -18,51 +13,9 @@ from releasescripts.mcgfirmware import *
 from releasescripts.mcgpack import *
 from tcconfig import TCConfig
 
-# from PyQt5.QtCore import pyqtSlot, QStringListModel, QByteArray
-# from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
-# from PyQt5.uic import loadUiType
-# sys.path.append(os.path.abspath('.'))
-
-
-def loadUiType(filename):
-    """Load form class from ui file."""
-    parsed = xml.parse(filename)
-    widget_class = parsed.find('widget').get('class')
-    form_class = parsed.find('class').text
-    with open(filename, 'r') as f:
-        o = StringIO()
-        frame = {}
-        pyside2uic.compileUi(f, o, indent=0)
-        pyc = compile(o.getvalue(), '<string>', 'exec')
-        ret_val = exec(pyc, frame)
-        # exec(pyc) in frame
-        form_class = frame['Ui_%s'%form_class]
-        base_class = eval('QtWidgets.%s'%widget_class)
-    return form_class, base_class
-
-
-def loadUi(filename, obj):
-    """
-    Load ui form class onto a given QWidget object.
-
-    NOTE:
-    This implements only the most common usage of PyQt's uic.loadUi as
-    done in `__init__` with `uic.loadUi('/some/ui/file', self)` meaning
-    the initializing class gets decorated with the form class from the
-    ui file itself.
-    Feel free to implement missing API features like a return value.
-    """
-    form_cls, base_cls = loadUiType(filename)
-    cls = obj.__class__
-    obj.__class__ = cls.__class__(
-        cls.__name__ + form_cls.__name__, (cls, form_cls), {})
-    obj.setupUi(obj)
-
-
 TOOLS_COLLECTOR_INI_FILE = 'toolscollector.ini'
 
-form_class, base_class = loadUiType('mainwindow.ui')
-# from mainwindow import Ui_MainWindow
+form_class, base_class = pyside_extension.loadUiType('mainwindow.ui')
 
 
 class TCMainWindowImpl(QMainWindow, form_class):
@@ -185,7 +138,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
         if selected_dir is not None and selected_dir != "":
             self.update_dir_combox(TCConfig.TCC_MCG_FW_DIR_HIST, str(Path(selected_dir)))
 
-    # @pyqtSlot(bool)
     @Slot(bool)
     def on_pbUpdateMcgFwVersions_clicked(self, checked):
         top_dir = Path(self.cbMcgFwDirs.currentText())
@@ -207,7 +159,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
             self.teLog.append("Error = " + local_error_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
-    # @pyqtSlot(bool)
     @Slot(bool)
     def on_pbCfgDirSel_clicked(self, checked):
         # self.teLog.append("pbCfgDirSel clicked")
@@ -218,7 +169,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
         if selected_dir is not None and selected_dir != "":
             self.update_dir_combox(TCConfig.TCC_MCG_CFG_DIR_HIST, str(Path(selected_dir)))
 
-    # @pyqtSlot(bool)
     @Slot(bool)
     def on_pbUpdateMcgMasters_clicked(self, checked):
         top_dir = Path(self.cbMcgCfgDirs.currentText())
@@ -240,7 +190,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
             self.teLog.append("Error = " + local_err_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
-    # @pyqtSlot(bool)
     @Slot(bool)
     def on_pbPackDirSel_clicked(self, checked):
         self.teLog.append("pbPackDirSel clicked")
@@ -250,7 +199,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
         if selected_dir is not None and selected_dir != "":
             self.update_dir_combox(TCConfig.TCC_MCG_PACK_DIR_HIST, str(Path(selected_dir)))
 
-    # @pyqtSlot(bool)
     @Slot(bool)
     def on_pbUpdateMcgPackVersions_clicked(self, checked):
         mcg_fw_version = self.cbMcgFwVersions.currentText()
@@ -274,7 +222,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
             self.teLog.append(local_err_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
-    # @pyqtSlot(bool)
     @Slot(bool)
     def on_pbCreateMcgPackTags_clicked(self, checked):
         branch_version = self.cbPackSrcBranchVersions.currentText()
@@ -298,7 +245,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
             self.teLog.append(local_err_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
-    # @pyqtSlot(bool)
     @Slot(bool)
     def on_pbInstLocSel_clicked(self, checked):
         # self.teLog.append("pbInstLocSel clicked")
@@ -308,7 +254,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
         if selected_dir is not None and selected_dir != "":
             self.update_dir_combox(TCConfig.TCC_INST_DIR_HIST, str(Path(selected_dir)))
 
-    # @pyqtSlot(bool)
     @Slot(bool)
     def on_pbCopyMcgFwToInstLoc_clicked(self, checked):
         inst_src = self.cbMcgFwRepoVersions.currentText()
@@ -337,7 +282,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
             self.teLog.append(local_err_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
-    # @pyqtSlot(bool)
     @Slot(bool)
     def on_pbClearLog_clicked(self, checked):
         self.teLog.clear()
