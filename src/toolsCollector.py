@@ -111,6 +111,9 @@ class TCMainWindowImpl(QMainWindow, form_class):
         # fetch stringList again as it was updated in the model through the insert above
         self.config.updateSection(id, model.stringList())
 
+    def update_configs(self):
+        for section_id, data_pair in self._data_dic.items():
+            self.config.updateSection(section_id, data_pair['model'].stringList())
 
     def on_app_about_to_quit(self):
         pos = self.pos()
@@ -126,6 +129,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
         layout['geometry'] = str(self.saveGeometry().toBase64())
         layout['state'] = str(self.saveState().toBase64())
         self.config.updateSection(TCConfig.TCC_LAYOUT, layout)
+        self.update_configs()
         self.config.saveConfig(TOOLS_COLLECTOR_INI_FILE)
         return True
 
