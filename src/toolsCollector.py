@@ -59,6 +59,15 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.inst_dirs_model = QStringListModel(self.config.getSectionValues(TCConfig.TCC_INST_DIR_HIST))
         self.cbMcgFwInstDirs.setModel(self.inst_dirs_model)
 
+        self._data_version_comboxes = [
+            self.cbMcgFwVersions,
+            self.cbMcgCfgVersions,
+            self.cbProdBaseVersions,
+            self.cbPackSrcBranchVersions,
+            self.cbMcgPackTagVersions,
+            self.cbMcgFwRepoVersions,
+            self.cbMcgFwInstVersions
+        ]
         self._data_dic = {
             TCConfig.TCC_MCG_FW_DIR_HIST:    {'combox': self.cbMcgFwDirs,             'model': self.mcg_fw_dir_model},
             TCConfig.TCC_MCG_FW_VERS_HIST:   {'combox': self.cbMcgFwVersions,         'model': self.mcg_fw_versions},
@@ -88,7 +97,22 @@ class TCMainWindowImpl(QMainWindow, form_class):
                 self.restoreState(QByteArray.fromBase64(byte_array))
         pass
 
-    def update_version_combox(self, id, version):
+    def update_version_combox_obj(self, combox):
+        version = combox.currentText()
+        nr_items = len(version.split('.'))
+        if version and ((nr_items == 4) or ((nr_items == 3) and (combox == self.cbMcgFwInstVersions))):
+            # more or less a valid version
+            model = combox.model()
+            if version in model.stringList():
+                # remove existing item and new added at front
+                idx = combox.currentIndex()
+                combox.removeItem(idx)
+            combox.insertItem(0, version)
+            combox.setCurrentIndex(0)
+        else:
+            self.teLog.append('invalid version "%s"' % version)
+
+    def update_version_combox_id(self, id, version):
         combox = self._data_dic[id]['combox']
         model = self._data_dic[id]['model']
         if version in model.stringList():
@@ -133,6 +157,10 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.config.saveConfig(TOOLS_COLLECTOR_INI_FILE)
         return True
 
+    def on_app_focus_changed(self, old, new):
+        if old in self._data_version_comboxes:
+            self.update_version_combox_obj(old)
+
     @Slot(bool)
     def on_pbFwDirSel_clicked(self, checked):
         options = QFileDialog.Options()
@@ -150,7 +178,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
         msg = "UpdateMcgFwVersions clicked with parameter = %s" % mcg_fw_version
         self.teLog.append(msg)
         self.teLog.append("-------------------------------------------------------------------------------")
-        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcg_fw_version)
         try:
             local_result, local_error_msg = update_mcg_fw_versions(top_dir, mcg_fw_version)
         except:
@@ -181,7 +208,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
         msg = "UpdateMcgMasters clicked with parameter = %s" % mcg_fw_version
         self.teLog.append(msg)
         self.teLog.append("-------------------------------------------------------------------------------")
-        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcg_fw_version)
         try:
             local_result, local_err_msg = update_mcg_master_files(str(top_dir), mcg_fw_version)
         except:
@@ -214,9 +240,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
               (mcg_fw_version, mcg_cfg_version, prod_base_version)
         self.teLog.append(msg)
         self.teLog.append("-------------------------------------------------------------------------------")
-        self.update_version_combox(TCConfig.TCC_MCG_FW_VERS_HIST, mcg_fw_version)
-        self.update_version_combox(TCConfig.TCC_MCG_CFG_VERS_HIST, mcg_cfg_version)
-        self.update_version_combox(TCConfig.TCC_PRODBASE_VERS_HIST, prod_base_version)
         local_version_dic = {'fw': mcg_fw_version, 'cfg': mcg_cfg_version, 'prod_base': prod_base_version}
         local_result, local_err_msg = update_pack_files(pack_dir, local_version_dic)
         if local_result:
@@ -234,8 +257,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
         msg = "CreateMcgPackTags clicked with packBranch = %s and packTag = %s" % (branch_version, tag_version)
         self.teLog.append(msg)
         self.teLog.append("-------------------------------------------------------------------------------")
-        self.update_version_combox(TCConfig.TCC_PACK_BRNCH_HIST, branch_version)
-        self.update_version_combox(TCConfig.TCC_PACK_TAG_HIST, tag_version)
         try:
             local_result, local_err_msg = create_pack_tags_from_branch(str(branch_version), str(tag_version))
         except:
@@ -270,9 +291,6 @@ class TCMainWindowImpl(QMainWindow, form_class):
         self.teLog.append("===============================================================================")
         msg = "CopyMcgFwToInstLoc clicked with src = %s and dst = %s" % (inst_src, inst_dst)
         self.teLog.append(msg)
-        self.update_version_combox(TCConfig.TCC_INST_SRC_HIST, inst_src)
-        self.update_version_combox(TCConfig.TCC_INST_DST_HIST, inst_dst)
-        self.update_dir_combox(TCConfig.TCC_INST_DIR_HIST, top_dir)
         try:
             local_result, local_err_msg = copy_fw_to_install_dir(inst_src, inst_dst, top_dir)
         except:
@@ -295,5 +313,6 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     form = TCMainWindowImpl()
     app.aboutToQuit.connect(form.on_app_about_to_quit)
+    app.focusChanged.connect(form.on_app_focus_changed)
     form.show()
     sys.exit(app.exec_())
