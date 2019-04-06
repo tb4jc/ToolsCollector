@@ -88,13 +88,13 @@ class TCMainWindowImpl(QMainWindow, form_class):
         layout = self.config.getSectionFull(TCConfig.TCC_LAYOUT)
         if type(layout) is dict:
             if 'geometry'in layout:
-                byte_array = QByteArray().append(layout['geometry'])
+                byte_array = bytes(layout['geometry'], 'utf-8')
                 self.restoreGeometry(QByteArray.fromBase64(byte_array))
             elif 'PosX' in layout:
                 self.move(layout['PosX'], layout['PosY'])
                 self.resize(layout['Width'], layout['Height'])
             if 'state' in layout:
-                byte_array = QByteArray().append(layout['state'])
+                byte_array = bytes(layout['state'], 'utf-8')
                 self.restoreState(QByteArray.fromBase64(byte_array))
         pass
 
@@ -149,11 +149,8 @@ class TCMainWindowImpl(QMainWindow, form_class):
         size = self.size()
         layout['Height'] = str(size.height())
         layout['Width'] = str(size.width())
-
-        geometry = str(self.saveGeometry().toBase64())
-
-        layout['geometry'] = str(self.saveGeometry().toBase64())
-        layout['state'] = str(self.saveState().toBase64())
+        layout['geometry'] = bytes(self.saveGeometry().toBase64()).decode()
+        layout['state'] = bytes(self.saveState().toBase64()).decode()
         self.config.updateSection(TCConfig.TCC_LAYOUT, layout)
         self.update_configs()
         self.config.saveConfig(TOOLS_COLLECTOR_INI_FILE)

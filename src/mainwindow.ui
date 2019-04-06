@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MyToolsCollection</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="mainwindow.qrc">
+    <normaloff>:/mainwindow/resources/folder.png</normaloff>:/mainwindow/resources/folder.png</iconset>
+  </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
   </property>
