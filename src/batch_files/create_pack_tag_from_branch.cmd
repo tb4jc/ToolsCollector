@@ -49,7 +49,7 @@ echo Release branch: %REL_BRANCH_VERSION%
 echo Tag Versions:   %NRTOS1_TAG_VERSION%, %NRTOS2_TAG_VERSION%, %NRTOS4_TAG_VERSION%
 
 echo Calling "svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% > NUL"
-svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% > NUL
+REM svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% > NUL
 if not errorlevel 1 goto exists1
 
 echo Calling 'svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% -m "MCG Platform Release %NRTOS1_TAG_VERSION%"'
@@ -65,7 +65,7 @@ echo Release Tag %NRTOS1_TAG_VERSION% already exists!
 
 :create2
 echo Calling "svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% > NUL"
-svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% > NUL
+REM svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% > NUL
 if not errorlevel 1 goto exists2
 
 echo Calling 'svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% -m "MCG Platform Release %NRTOS2_TAG_VERSION%"'
@@ -81,7 +81,7 @@ echo Release Tag %NRTOS2_TAG_VERSION% already exists!
 
 :create4
 echo Calling "svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% > NUL"
-svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% > NUL
+REM svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% > NUL
 if not errorlevel 1 goto exists4
 
 echo Calling 'svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% -m "MCG Platform Release %NRTOS4_TAG_VERSION%"'
@@ -109,6 +109,6 @@ if exist ..\..\ansi.txt echo [1;33m
 echo ==========================================
 if exist ..\..\ansi.txt echo [0m
 
-if "%1"=="1.2.3.4" exit 1
+if "%REL_BRANCH_VERSION%"=="1.2.3.4" exit 1
 
 REM EOF

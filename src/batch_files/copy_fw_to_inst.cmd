@@ -58,10 +58,10 @@ echo Version NRTOS4 %LOCAL_VERSION4%
 set OLDPATH=%PATH%
 set PATH=.;%OLDPATH%
 
-echo "Called with option 1=%REPO_VERSION%, 2=%INST_DIR_NAME%, 3=%INST_DIR%"
+echo "Called with option 1=%REPO_VERSION%, 2=%LOCAL_VERSION%, 3=%INST_DIR%"
 REM ===
 
-echo Coyping now version MCG Firmware build %REPO_VERSION% from GBE repository to QNAP MCG Test Software Version %LOCAL_VERSION% / %LOCAL_VERSION2% ...
+echo Coyping now version MCG Firmware build %REPO_VERSION% from GBE repository to QNAP MCG Test Software '%INST_DIR%' with Version %LOCAL_VERSION% / %LOCAL_VERSION2% ...
 
 set REMOTE_PATH=\\files.scan.bombardier.com\repository\components\mcg_firmware\%REPO_VERSION%
 
@@ -70,24 +70,24 @@ set LOCAL_PATH=%INST_DIR%\%LOCAL_VERSION%
 if not exist %LOCAL_PATH%\03_mcg_firmware (
 	mkdir %LOCAL_PATH%\03_mcg_firmware
 )
-echo "xcopy %REMOTE_PATH%\dlu\mcg\*  %LOCAL_PATH%\03_mcg_firmware /E /F /Y"
-      REM xcopy %REMOTE_PATH%\dlu\mcg\*  %LOCAL_PATH%\03_mcg_firmware /E /F /Y
+echo "xcopy %REMOTE_PATH%\dlu\mcg\* %LOCAL_PATH%\03_mcg_firmware /E /F /Y"
+REM xcopy %REMOTE_PATH%\dlu\mcg\* %LOCAL_PATH%\03_mcg_firmware /E /F /Y
 
 REM copy NRTOS 2 build - after manipulating LOCAL_VERSION
 set LOCAL_PATH2=%INST_DIR%\%LOCAL_VERSION2%
 if not exist %LOCAL_PATH2%\03_mcg_firmware (
 	mkdir %LOCAL_PATH2%\03_mcg_firmware
 )
-echo "xcopy %REMOTE_PATH%\dlu\mcg2\*  %LOCAL_PATH2%\03_mcg_firmware /E /F /Y"
-      REM xcopy %REMOTE_PATH%\dlu\mcg2\*  %LOCAL_PATH2%\03_mcg_firmware /E /F /Y
+echo "xcopy %REMOTE_PATH%\dlu\mcg2\* %LOCAL_PATH2%\03_mcg_firmware /E /F /Y"
+REM xcopy %REMOTE_PATH%\dlu\mcg2\* %LOCAL_PATH2%\03_mcg_firmware /E /F /Y
 
 REM copy NRTOS 4 build - after manipulating LOCAL_VERSION
 set LOCAL_PATH4=%INST_DIR%\%LOCAL_VERSION4%
 if not exist %LOCAL_PATH4%\03_mcg_firmware (
 	mkdir %LOCAL_PATH4%\03_mcg_firmware
 )
-echo "xcopy %REOTE_PATH%\dlu\nrtos4\*  %LOCAL_PATH4%\03_mcg_firmware /E /F /Y"
-      REM xcopy %REMOTE_PATH%\dlu\nrtos4\*  %LOCAL_PATH4%\03_mcg_firmware /E /F /Y
+echo "xcopy %REOTE_PATH%\dlu\nrtos4\* %LOCAL_PATH4%\03_mcg_firmware /E /F /Y"
+REM xcopy %REMOTE_PATH%\dlu\nrtos4\* %LOCAL_PATH4%\03_mcg_firmware /E /F /Y
 
 set PATH=%OLDPATH%
 goto end
@@ -109,4 +109,4 @@ echo ===========================================================================
 if exist ..\..\ansi.txt echo [0m
 REM echo.
 
-if "%1"=="1.2.3.4" exit 1
+if "%REPO_VERSION%"=="1.2.3.4" exit 1
