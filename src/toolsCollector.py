@@ -186,7 +186,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
         if local_result:
             self.teLog.append("Mcg Firmware version files updated")
         else:
-            self.teLog.append("Failed to update Mcg Firmware version files.")
+            self.teLog.append("!!! Failed to update Mcg Firmware version files !!!")
             self.teLog.append("Error = " + local_error_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
@@ -216,7 +216,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
         if local_result:
             self.teLog.append("Mcg Master files updated")
         else:
-            self.teLog.append("Failed to update Mcg Master files.")
+            self.teLog.append("!!! Failed to update Mcg Master files !!!")
             self.teLog.append("Error = " + local_err_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
@@ -245,7 +245,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
         if local_result:
             self.teLog.append("Update Pack Files succeeded")
         else:
-            self.teLog.append("Update Pack Files failed with error %d" % local_result)
+            self.teLog.append("!!! Update Pack Files failed with error '%d' !!!" % local_result)
             self.teLog.append(local_err_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
@@ -266,7 +266,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
             self.teLog.append("Creating MCG Pack Tags succeeded:")
             self.teLog.append(local_err_msg)
         else:
-            self.teLog.append("Creating MCG Pack Tags failed with error %d" % local_result)
+            self.teLog.append("!!! Creating MCG Pack Tags failed with error '%d' !!!" % local_result)
             self.teLog.append(local_err_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
@@ -300,7 +300,7 @@ class TCMainWindowImpl(QMainWindow, form_class):
             self.teLog.append("Copying MCG Fw succeeded:")
             self.teLog.append(local_err_msg)
         else:
-            self.teLog.append("Copying MCG Fw failed with error %d" % local_result)
+            self.teLog.append("!!! Copying MCG Fw failed with error '%d' !!!" % local_result)
             self.teLog.append(local_err_msg)
         self.teLog.append("-------------------------------------------------------------------------------")
 
