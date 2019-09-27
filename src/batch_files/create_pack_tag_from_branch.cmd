@@ -49,47 +49,47 @@ echo Release branch: %REL_BRANCH_VERSION%
 echo Tag Versions:   %NRTOS1_TAG_VERSION%, %NRTOS2_TAG_VERSION%, %NRTOS4_TAG_VERSION%
 
 echo Calling "svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% > NUL"
-REM svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% > NUL
+svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% > NUL
 if not errorlevel 1 goto exists1
 
 echo Calling 'svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% -m "MCG Platform Release %NRTOS1_TAG_VERSION%"'
-REM svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% -m "MCG Platform Release %NRTOS1_TAG_VERSION%"
-REM if errorlevel 1 (
-REM    echo Creating SVN MCG Pack tag %NRTOS1_TAG_VERSION% failed
-REM    goto EOF
-REM )
-REM goto create2
+svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS1_TAG_VERSION% -m "MCG Platform Release %NRTOS1_TAG_VERSION%"
+if errorlevel 1 (
+   echo Creating SVN MCG Pack tag %NRTOS1_TAG_VERSION% failed
+   goto EOF
+)
+goto create2
 
 :exists1
 echo Release Tag %NRTOS1_TAG_VERSION% already exists!
 
 :create2
 echo Calling "svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% > NUL"
-REM svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% > NUL
+svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% > NUL
 if not errorlevel 1 goto exists2
 
 echo Calling 'svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% -m "MCG Platform Release %NRTOS2_TAG_VERSION%"'
-REM svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% -m "MCG Platform Release %NRTOS2_TAG_VERSION%"
-REM if not errorlevel 0 (
-    REM echo Creating SVN MCG Pack tag %NRTOS2_TAG_VERSION% failed
-    REM goto EOF
-REM )
-REM goto create4
+svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS2_TAG_VERSION% -m "MCG Platform Release %NRTOS2_TAG_VERSION%"
+if not errorlevel 0 (
+    echo Creating SVN MCG Pack tag %NRTOS2_TAG_VERSION% failed
+    goto EOF
+)
+goto create4
 
 :exists2
 echo Release Tag %NRTOS2_TAG_VERSION% already exists!
 
 :create4
 echo Calling "svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% > NUL"
-REM svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% > NUL
+svn proplist http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% > NUL
 if not errorlevel 1 goto exists4
 
 echo Calling 'svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% -m "MCG Platform Release %NRTOS4_TAG_VERSION%"'
-REM svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% -m "MCG Platform Release %NRTOS4_TAG_VERSION%"
-REM if errorlevel 1 (
-    REM echo Creating SVN MCG Pack tag %NRTOS4_TAG_VERSION% failed
-    REM goto EOF
-REM )
+svn cp http://10.160.151.2:3690/svn/package/mcg/branches/%REL_BRANCH_VERSION% http://10.160.151.2:3690/svn/package/mcg/tags/%NRTOS4_TAG_VERSION% -m "MCG Platform Release %NRTOS4_TAG_VERSION%"
+if errorlevel 1 (
+    echo Creating SVN MCG Pack tag %NRTOS4_TAG_VERSION% failed
+    goto EOF
+)
 
 goto EOF
 
