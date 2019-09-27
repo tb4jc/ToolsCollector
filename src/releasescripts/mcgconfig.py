@@ -1,6 +1,8 @@
 #
 # Script for updating MCG Master configurations to new given version.
 #
+# Version 1.0.1.0
+#
 
 import fileinput
 import sys
@@ -46,7 +48,7 @@ def update_platform_xml(work_dir, version_dic):
     version_rub = '.%s.%s.%s' % (version_dic['release'], version_dic['update'], version_dic['evolution'])
 
     # update mcg platform files
-    search_data = {'mcg_platform_BT.xml': '3', 'mcg2_platform_BT.xml': '4', 'mcg4_platform_BT.xml': '5'}
+    search_data = {'mcg_platform_BT.xml': '3', 'mcg2_platform_BT.xml': '4', 'mcg4_platform_BT.xml': '5', 'mcg4x86_platform_BT.xml': '6'}
     platform_files = find_files(work_dir, '.*mcg.?_platform.*\.xml')
     for file_path, file_name in platform_files:
         # for each platform master, search version line
